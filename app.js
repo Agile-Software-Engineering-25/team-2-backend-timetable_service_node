@@ -9,6 +9,7 @@ const { authJwt } = require('./helper/jwt');
 const pinoHttp = require('pino-http');
 const logger = require('./helper/logger');
 const { setContext } = require('./helper/context');
+const { randomUUID } = require("crypto")
 
 require("dotenv/config");
 
@@ -45,6 +46,7 @@ if (process.env.NODE_ENV == 'prod') {
 }
 //Routers
 const scheduleRouter = require("./routers/v1/schedule");
+const { initDB, query } = require('./helper/getCon');
 
 const api = "/api/v1";
 
@@ -57,6 +59,9 @@ if (process.env.NODE_ENV != 'test') {
     app.listen(
         process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT,
         async () => {
+            await initDB()
+
+
             console.log("Start Up")
 
             console.log(

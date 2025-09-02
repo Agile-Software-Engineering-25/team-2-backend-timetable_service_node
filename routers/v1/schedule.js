@@ -1,5 +1,7 @@
 const express = require('express');
+const { query } = require('../../helper/getCon');
 const router = express.Router();
+
 const examplePersonalEntry = {
     course_id: "de305d54-75b4-431b-adb2-eb6b9e546014",
     room_id: "a4f3e1ab-003f-4b88-b4cd-6e6e22a5c9cd",
@@ -32,7 +34,6 @@ router.get("", (req, res) => {
     if (result.length === 0) {
         return res.status(404).json({ error: "No entries found" });
     }
-
     res.json({
         "2025-07-23": result
     });

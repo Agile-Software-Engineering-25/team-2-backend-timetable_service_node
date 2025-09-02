@@ -1,0 +1,307 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Schedule API",
+    "version": "1.0.0",
+    "description": "API zur Abfrage von geplanten Veranstaltungen"
+  },
+  "paths": {
+    "/api/v1/schedule": {
+      "get": {
+        "tags": [
+          "Schedule"
+        ],
+        "summary": "Returns scheduled events (Datum als JSON-Key)",
+        "description": "Gibt einen Zeitplan zurück, bei dem das Datum als Property-Name im JSON verwendet wird",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "de305d54-75b4-431b-adb2-eb6b9e546014"
+            },
+            "description": "Filter nach Kurs-ID"
+          },
+          {
+            "name": "lecturerId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c8763eaa-e57f-49a1-bbfb-7f22d6e4a55c"
+            },
+            "description": "Filter nach Dozenten-ID"
+          },
+          {
+            "name": "roomId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a4f3e1ab-003f-4b88-b4cd-6e6e22a5c9cd"
+            },
+            "description": "Filter nach Raum-ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Beispiel": {
+                    "summary": "Beispielantwort",
+                    "value": {
+                      "2025-07-23": [
+                        {
+                          "courseId": "de305d54-75b4-431b-adb2-eb6b9e546014",
+                          "roomId": "a4f3e1ab-003f-4b88-b4cd-6e6e22a5c9cd",
+                          "lecturerId": "c8763eaa-e57f-49a1-bbfb-7f22d6e4a55c",
+                          "groupId": "d1a113fd-d62e-4be1-92fc-2b0977c0c20d",
+                          "startTime": "2025-07-23T10:00:00Z",
+                          "endTime": "2025-07-23T12:00:00Z",
+                          "title": "Database Systems II"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query data",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "error": {
+                    "value": "Invalid query parameter"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "error": {
+                    "value": "Invalid token"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "error": {
+                    "value": "Insufficient permissions"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "error": {
+                    "value": "No entries found"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "error": {
+                    "value": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/schedule/personal": {
+      "get": {
+        "tags": [
+          "Schedule"
+        ],
+        "summary": "Returns scheduled events (Date as JSON-Key)",
+        "description": "Retruns personal schedule",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "de305d54-75b4-431b-adb2-eb6b9e546014"
+            },
+            "description": "Filter nach Kurs-ID"
+          },
+          {
+            "name": "lecturerId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c8763eaa-e57f-49a1-bbfb-7f22d6e4a55c"
+            },
+            "description": "Filter nach Dozenten-ID"
+          },
+          {
+            "name": "roomId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a4f3e1ab-003f-4b88-b4cd-6e6e22a5c9cd"
+            },
+            "description": "Filter nach Raum-ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Beispiel": {
+                    "value": {
+                      "2025-07-23": [
+                        {
+                          "course_id": "de305d54-75b4-431b-adb2-eb6b9e546014",
+                          "room_id": "a4f3e1ab-003f-4b88-b4cd-6e6e22a5c9cd",
+                          "lecturer_id": "c8763eaa-e57f-49a1-bbfb-7f22d6e4a55c",
+                          "group_id": "d1a113fd-d62e-4be1-92fc-2b0977c0c20d",
+                          "start_time": "2025-07-23T10:00:00Z",
+                          "end_time": "2025-07-23T12:00:00Z",
+                          "title": "Database Systems II"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query data",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "error": {
+                    "value": "Invalid query parameter"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "error": {
+                    "value": "Missing or invalid token"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "error": {
+                    "value": "Insufficient permissions"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "error": {
+                    "value": "No entries found"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "error": {
+                    "value": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ScheduledEntry": {
+        "type": "object",
+        "properties": {
+          "courseId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "roomId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "lecturerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "groupId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

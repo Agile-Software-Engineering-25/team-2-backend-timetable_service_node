@@ -1,5 +1,6 @@
 const express = require('express');
 const { query } = require('../../helper/getCon');
+const { requireRole } = require('../../helper/permission');
 const router = express.Router();
 
 const examplePersonalEntry = {
@@ -22,8 +23,9 @@ const exampleEntry = {
     title: "Database Systems II"
 };
 
-router.get("", (req, res) => {
+router.get("", requireRole("view-profile"), (req, res) => {
     const { courseId, lecturerId, roomId } = req.query;
+    console.log(req.user)
 
     // Filter-Beispiel (sehr rudimentär)
     let result = [exampleEntry];
@@ -38,7 +40,7 @@ router.get("", (req, res) => {
         "2025-07-23": result
     });
 });
-router.get("/personal", (req, res) => {
+router.get("/personal", requireRole("view-prfffofile"), (req, res) => {
     const { courseId, lecturerId, roomId } = req.query;
     console.log(req.user)
     let result = [examplePersonalEntry];

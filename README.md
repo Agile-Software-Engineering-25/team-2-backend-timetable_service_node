@@ -68,3 +68,22 @@ The UUIDs are created with the randomUUID function from crypto package.
    
 ```
 
+# Working with Roles - Endpoint creation
+The string transmittet to require role, is the required role. I checks in the JWT, if the user has this role. If yes, the code will be executed. If no it will be rejected with code 403.
+All Endpoint should be created as in the following example.
+```javascript
+//Will be rejected
+router.get("/", requireRole("view-prfffofile"), (req, res) => {
+  //Will not be executed
+  //Will not be executed
+  //Will not be executed
+
+});
+//Will work
+router.get("/", requireRole("view-profile"), (req, res) => {
+  //Some Code here
+  //Some Code here
+  //Some Code here
+
+});
+```

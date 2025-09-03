@@ -41,12 +41,13 @@ app.use(pinoHttp({
     }
 }));
 
-if (process.env.NODE_ENV == 'prod') {
-    app.use(authJwt());
-}
+// if (process.env.NODE_ENV == 'prod') {
+app.use(authJwt());
+// }
 //Routers
 const scheduleRouter = require("./routers/v1/schedule");
 const { initDB, query } = require('./helper/getCon');
+const { generateAccessToken } = require('./helper/accessToken');
 
 const api = "/api/v1";
 
@@ -54,6 +55,34 @@ app.use(`${api}/schedule`, scheduleRouter);
 
 
 app.use(api + '/docs', swaggerUi.serve, swaggerUi.setup(catchEndpoints(app)));
+app.get(api + "/login", (req, res) => {
+    return res.status(200).send(generateAccessToken({
+        "realm_access": {
+            "roles": [
+                "testabc",
+                "offline_access",
+                "uma_authorization",
+                "default-roles-hvs2"
+            ]
+        },
+        "resource_access": {
+            "account": {
+                "roles": [
+                    "manage-account",
+                    "manage-account-links",
+                    "view-profile"
+                ]
+            }
+        },
+        "scope": "openid email profile",
+        "email_verified": false,
+        "name": "Luca Schmitz",
+        "preferred_username": "test2",
+        "given_name": "Luca",
+        "family_name": "Schmitz",
+        "email": "newuser@example.com"
+    }))
+});
 
 if (process.env.NODE_ENV != 'test') {
     app.listen(

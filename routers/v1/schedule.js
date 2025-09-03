@@ -40,7 +40,7 @@ router.get("", (req, res) => {
 });
 router.get("/personal", (req, res) => {
     const { courseId, lecturerId, roomId } = req.query;
-
+    console.log(req.user)
     let result = [examplePersonalEntry];
     if (courseId && courseId !== examplePersonalEntry.course_id) result = [];
     if (lecturerId && lecturerId !== examplePersonalEntry.lecturer_id) result = [];

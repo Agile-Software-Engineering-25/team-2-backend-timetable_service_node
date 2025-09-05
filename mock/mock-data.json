@@ -1,23 +1,23 @@
 {
   "meta": {
-    "version": "2.0.0",
+    "version": "2.1",
     "generated": "2025-09-05",
-    "notes": "Mock-Daten für Stundenplan-Service mit Person-Hierarchie (Student, Mitarbeiter, Dozent)"
+    "notes": "Mock-Daten mit UUID-IDs für Stundenplan-Service (Person, Student, Mitarbeiter, Dozent)"
   },
 
   "users": [
-    { "id": "u-s-1001", "linkedEntityId": "s-1001", "role": "STUDENT", "username": "alex.mueller" },
-    { "id": "u-s-1002", "linkedEntityId": "s-1002", "role": "STUDENT", "username": "fatima.yilmaz" },
-    { "id": "u-s-1003", "linkedEntityId": "s-1003", "role": "STUDENT", "username": "jonas.weber" },
-    { "id": "u-d-2001", "linkedEntityId": "d-2001", "role": "DOZENT",  "username": "jana.roth" },
-    { "id": "u-d-2002", "linkedEntityId": "d-2002", "role": "DOZENT",  "username": "minh.nguyen" },
-    { "id": "u-m-3001", "linkedEntityId": "m-3001", "role": "MITARBEITER", "username": "sandra.schmidt" },
-    { "id": "u-admin-1", "linkedEntityId": null,   "role": "ADMIN",   "username": "admin" }
+    { "id": "9d1f9bde-1c59-4e7d-89a3-fcd91e8a2b11", "linkedEntityId": "2f3a9a07-4f35-4c28-8d79-5f9639c59f4c", "role": "STUDENT", "username": "alex.mueller" },
+    { "id": "c1d2330a-3b9c-4c21-87db-f43eb2d129d9", "linkedEntityId": "6cf5a2f9-df6f-4f55-b55e-22ef0c7de733", "role": "STUDENT", "username": "fatima.yilmaz" },
+    { "id": "1588c372-6ad4-44f7-ae9c-77452a7e41d5", "linkedEntityId": "1f91f8aa-d587-4057-8f8a-7c7d235b69a2", "role": "STUDENT", "username": "jonas.weber" },
+    { "id": "ba639d21-3e55-4f40-b420-bf947b445e64", "linkedEntityId": "15389065-daf0-4a2e-bae5-2e3f024a7921", "role": "DOZENT",  "username": "jana.roth" },
+    { "id": "ad2f08b4-1c68-4f87-91df-1b32c5864e7d", "linkedEntityId": "e2193aa1-63a0-470a-b6ed-3bcbb73d42db", "role": "DOZENT",  "username": "minh.nguyen" },
+    { "id": "89d6e254-69e4-47d8-95c7-03e5c20f0b11", "linkedEntityId": "e74505fb-6b08-482b-b1b6-87c567a07b1a", "role": "MITARBEITER", "username": "sandra.schmidt" },
+    { "id": "bdad3295-78fd-4f9c-b21f-13f2207fc215", "linkedEntityId": null, "role": "ADMIN", "username": "admin" }
   ],
 
   "personen": [
     {
-      "id": "p-1001",
+      "id": "c3e8f705-b23e-4a12-86c8-8af370c1145a",
       "vorname": "Alex",
       "nachname": "Müller",
       "geburtsdatum": "2002-04-12",
@@ -26,7 +26,7 @@
       "foto": null
     },
     {
-      "id": "p-1002",
+      "id": "a5f6e029-291a-4d36-9f9b-f57a1bfb77e2",
       "vorname": "Fatima",
       "nachname": "Yilmaz",
       "geburtsdatum": "2004-08-20",
@@ -35,7 +35,7 @@
       "foto": null
     },
     {
-      "id": "p-1003",
+      "id": "f6b1d822-47c9-4dd2-95d7-2f7a9c4db2b3",
       "vorname": "Jonas",
       "nachname": "Weber",
       "geburtsdatum": "2000-11-02",
@@ -44,7 +44,7 @@
       "foto": null
     },
     {
-      "id": "p-2001",
+      "id": "8a707c82-3c6f-4f3c-8e7e-64a84aeb82c5",
       "vorname": "Jana",
       "nachname": "Roth",
       "geburtsdatum": "1975-03-08",
@@ -53,7 +53,7 @@
       "foto": null
     },
     {
-      "id": "p-2002",
+      "id": "84e78238-c45d-4a5f-8f7f-0c74b86d32c8",
       "vorname": "Minh",
       "nachname": "Nguyen",
       "geburtsdatum": "1980-09-15",
@@ -62,7 +62,7 @@
       "foto": null
     },
     {
-      "id": "p-2003",
+      "id": "9e49a5a5-32a9-4c58-82b6-08611f9b9d8e",
       "vorname": "Eva",
       "nachname": "Schneider",
       "geburtsdatum": "1988-05-21",
@@ -71,7 +71,7 @@
       "foto": null
     },
     {
-      "id": "p-3001",
+      "id": "b1a5c2d7-44b6-49f1-9e48-d285ce8367a3",
       "vorname": "Sandra",
       "nachname": "Schmidt",
       "geburtsdatum": "1985-02-28",
@@ -83,8 +83,8 @@
 
   "studenten": [
     {
-      "id": "s-1001",
-      "personId": "p-1001",
+      "id": "2f3a9a07-4f35-4c28-8d79-5f9639c59f4c",
+      "personId": "c3e8f705-b23e-4a12-86c8-8af370c1145a",
       "matrikelnummer": "20250001",
       "studiengang": "Informatik",
       "fachsemester": 3,
@@ -93,8 +93,8 @@
       "email": "alex.mueller@stud-hochschule.de"
     },
     {
-      "id": "s-1002",
-      "personId": "p-1002",
+      "id": "6cf5a2f9-df6f-4f55-b55e-22ef0c7de733",
+      "personId": "a5f6e029-291a-4d36-9f9b-f57a1bfb77e2",
       "matrikelnummer": "20250002",
       "studiengang": "Data Science",
       "fachsemester": 1,
@@ -103,8 +103,8 @@
       "email": "fatima.yilmaz@stud-hochschule.de"
     },
     {
-      "id": "s-1003",
-      "personId": "p-1003",
+      "id": "1f91f8aa-d587-4057-8f8a-7c7d235b69a2",
+      "personId": "f6b1d822-47c9-4dd2-95d7-2f7a9c4db2b3",
       "matrikelnummer": "20250003",
       "studiengang": "Informatik",
       "fachsemester": 5,
@@ -116,32 +116,32 @@
 
   "mitarbeiter": [
     {
-      "id": "m-2001",
-      "personId": "p-2001",
+      "id": "ff993132-13ab-4699-9c2c-56e1a6b5fa93",
+      "personId": "8a707c82-3c6f-4f3c-8e7e-64a84aeb82c5",
       "personalnummer": "D-001",
       "abteilung": "Fakultät Informatik",
       "arbeitszeitmodell": "Vollzeit",
       "email": "jana.roth@doz-hochschule.de"
     },
     {
-      "id": "m-2002",
-      "personId": "p-2002",
+      "id": "e2193aa1-63a0-470a-b6ed-3bcbb73d42db",
+      "personId": "84e78238-c45d-4a5f-8f7f-0c74b86d32c8",
       "personalnummer": "D-002",
       "abteilung": "Fakultät Statistik",
       "arbeitszeitmodell": "Vollzeit",
       "email": "minh.nguyen@doz-hochschule.de"
     },
     {
-      "id": "m-2003",
-      "personId": "p-2003",
+      "id": "bcf9f39e-3a39-45b2-8c82-508f3f6ff221",
+      "personId": "9e49a5a5-32a9-4c58-82b6-08611f9b9d8e",
       "personalnummer": "D-003",
       "abteilung": "Fakultät Softwaretechnik",
       "arbeitszeitmodell": "Teilzeit",
       "email": "eva.schneider@doz-hochschule.de"
     },
     {
-      "id": "m-3001",
-      "personId": "p-3001",
+      "id": "e74505fb-6b08-482b-b1b6-87c567a07b1a",
+      "personId": "b1a5c2d7-44b6-49f1-9e48-d285ce8367a3",
       "personalnummer": "M-101",
       "abteilung": "IT-Support",
       "arbeitszeitmodell": "Vollzeit",
@@ -151,22 +151,22 @@
 
   "dozenten": [
     {
-      "id": "d-2001",
-      "mitarbeiterId": "m-2001",
+      "id": "15389065-daf0-4a2e-bae5-2e3f024a7921",
+      "mitarbeiterId": "ff993132-13ab-4699-9c2c-56e1a6b5fa93",
       "titel": "Prof. Dr.",
       "fachgebiet": "Programmierung",
       "beschaeftigungsstatus": "Vollzeit"
     },
     {
-      "id": "d-2002",
-      "mitarbeiterId": "m-2002",
+      "id": "e2193aa1-63a0-470a-b6ed-3bcbb73d42db",
+      "mitarbeiterId": "e2193aa1-63a0-470a-b6ed-3bcbb73d42db",
       "titel": "Dr.",
       "fachgebiet": "Statistik",
       "beschaeftigungsstatus": "Vollzeit"
     },
     {
-      "id": "d-2003",
-      "mitarbeiterId": "m-2003",
+      "id": "ca4dfda5-6a7d-46f1-88e2-18d178f2d890",
+      "mitarbeiterId": "bcf9f39e-3a39-45b2-8c82-508f3f6ff221",
       "titel": "M.Sc.",
       "fachgebiet": "Software Engineering",
       "beschaeftigungsstatus": "Extern"
@@ -174,61 +174,61 @@
   ],
 
   "raeume": [
-    { "id": "r-4001", "bezeichnung": "E32", "kapazitaet": 120, "gebaeude": "B836" },
-    { "id": "r-4002", "bezeichnung": "E12", "kapazitaet": 24,  "gebaeude": "B835" },
-    { "id": "r-4003", "bezeichnung": "E05", "kapazitaet": 40,  "gebaeude": "B836" },
-    { "id": "r-4004", "bezeichnung": "E21", "kapazitaet": 80,  "gebaeude": "B835" }
+    { "id": "47f9e3e3-3c21-4d36-8f0e-31d5cfadf922", "bezeichnung": "E32", "kapazitaet": 120, "gebaeude": "B836" },
+    { "id": "4bb1f82b-9313-497a-9f65-3e7dcf87e743", "bezeichnung": "E12", "kapazitaet": 24, "gebaeude": "B835" },
+    { "id": "c241e9b2-3f3d-4e67-9e91-b7c394c3422c", "bezeichnung": "E05", "kapazitaet": 40, "gebaeude": "B836" },
+    { "id": "6f246e11-5a3d-44e8-b87c-26e3c91b71a5", "bezeichnung": "E21", "kapazitaet": 80, "gebaeude": "B835" }
   ],
 
   "kurse": [
-    { "id": "c-5001", "code": "INF101", "titel": "Programmierung I",        "typ": "VORLESUNG", "dozentId": "d-2001" },
-    { "id": "c-5002", "code": "DS210",  "titel": "Statistik",               "typ": "UEBUNG",    "dozentId": "d-2002" },
-    { "id": "c-5003", "code": "INF330", "titel": "Software Engineering",    "typ": "PRAKTIKUM", "dozentId": "d-2003" },
-    { "id": "c-5004", "code": "INF150", "titel": "Algorithmen Tutorium",    "typ": "TUTORIUM",  "dozentId": "d-2003" },
-    { "id": "c-5005", "code": "INF101K","titel": "Programmierung I Klausur","typ": "KLAUSUR",   "dozentId": "d-2001" }
+    { "id": "6ad7b8c8-0b23-4e1a-8d8f-4a9f1b4f0e24", "code": "INF101", "titel": "Programmierung I", "typ": "VORLESUNG", "dozentId": "15389065-daf0-4a2e-bae5-2e3f024a7921" },
+    { "id": "a26b44c1-40df-4486-9095-d9bc5e4449d7", "code": "DS210", "titel": "Statistik", "typ": "UEBUNG", "dozentId": "e2193aa1-63a0-470a-b6ed-3bcbb73d42db" },
+    { "id": "c9a6e4a3-b3d7-45a1-9d1c-5c6a4e8f0a9d", "code": "INF330", "titel": "Software Engineering", "typ": "PRAKTIKUM", "dozentId": "ca4dfda5-6a7d-46f1-88e2-18d178f2d890" },
+    { "id": "edb791e0-f1c7-45d1-bd9c-4368bc92c10c", "code": "INF150", "titel": "Algorithmen Tutorium", "typ": "TUTORIUM", "dozentId": "ca4dfda5-6a7d-46f1-88e2-18d178f2d890" },
+    { "id": "28a9df4e-312d-44b3-bb7c-998e21bb8b07", "code": "INF101K", "titel": "Programmierung I Klausur", "typ": "KLAUSUR", "dozentId": "15389065-daf0-4a2e-bae5-2e3f024a7921" }
   ],
 
   "veranstaltungen": [
     {
-      "id": "v-6001",
-      "courseId": "c-5001",
-      "raumId": "r-4001",
+      "id": "f72193f9-8c72-4316-b5c5-45b5e41df152",
+      "courseId": "6ad7b8c8-0b23-4e1a-8d8f-4a9f1b4f0e24",
+      "raumId": "47f9e3e3-3c21-4d36-8f0e-31d5cfadf922",
       "wochentag": "TUESDAY",
       "start": "2025-10-21T10:00:00",
       "ende":  "2025-10-21T12:00:00",
       "rhythmus": "WEEKLY"
     },
     {
-      "id": "v-6002",
-      "courseId": "c-5002",
-      "raumId": "r-4002",
+      "id": "d892f92d-d2f1-49f6-8b3a-38f273da9f5e",
+      "courseId": "a26b44c1-40df-4486-9095-d9bc5e4449d7",
+      "raumId": "4bb1f82b-9313-497a-9f65-3e7dcf87e743",
       "wochentag": "WEDNESDAY",
       "start": "2025-10-22T14:00:00",
       "ende":  "2025-10-22T16:00:00",
       "rhythmus": "BIWEEKLY"
     },
     {
-      "id": "v-6003",
-      "courseId": "c-5003",
-      "raumId": "r-4003",
+      "id": "b50a4d91-5c2e-45f7-8c64-7e9bb8a9f93c",
+      "courseId": "c9a6e4a3-b3d7-45a1-9d1c-5c6a4e8f0a9d",
+      "raumId": "c241e9b2-3f3d-4e67-9e91-b7c394c3422c",
       "wochentag": "THURSDAY",
       "start": "2025-10-23T09:00:00",
       "ende":  "2025-10-23T12:00:00",
       "rhythmus": "WEEKLY"
     },
     {
-      "id": "v-6004",
-      "courseId": "c-5004",
-      "raumId": "r-4004",
+      "id": "c91e13da-5c42-45fa-8b52-8f918c4bdb3a",
+      "courseId": "edb791e0-f1c7-45d1-bd9c-4368bc92c10c",
+      "raumId": "6f246e11-5a3d-44e8-b87c-26e3c91b71a5",
       "wochentag": "MONDAY",
       "start": "2025-10-20T16:00:00",
       "ende":  "2025-10-20T18:00:00",
       "rhythmus": "WEEKLY"
     },
     {
-      "id": "v-6005",
-      "courseId": "c-5005",
-      "raumId": "r-4001",
+      "id": "f14c60a5-1fb5-4521-9136-6b2ac78513e7",
+      "courseId": "28a9df4e-312d-44b3-bb7c-998e21bb8b07",
+      "raumId": "47f9e3e3-3c21-4d36-8f0e-31d5cfadf922",
       "wochentag": "FRIDAY",
       "start": "2026-02-13T10:00:00",
       "ende":  "2026-02-13T12:00:00",
@@ -237,8 +237,8 @@
   ],
 
   "stundenplaene": [
-    { "id": "sp-7001", "studentId": "s-1001", "veranstaltungsIds": ["v-6001", "v-6002", "v-6004"] },
-    { "id": "sp-7002", "studentId": "s-1002", "veranstaltungsIds": ["v-6001", "v-6003"] },
-    { "id": "sp-7003", "studentId": "s-1003", "veranstaltungsIds": ["v-6003", "v-6005"] }
+    { "id": "df9c41fb-2c5e-4c33-bf73-234d7cbfa144", "studentId": "2f3a9a07-4f35-4c28-8d79-5f9639c59f4c", "veranstaltungsIds": ["f72193f9-8c72-4316-b5c5-45b5e41df152", "d892f92d-d2f1-49f6-8b3a-38f273da9f5e", "c91e13da-5c42-45fa-8b52-8f918c4bdb3a"] },
+    { "id": "fe71f3e1-07f4-4713-a599-7d2c23cf84c4", "studentId": "6cf5a2f9-df6f-4f55-b55e-22ef0c7de733", "veranstaltungsIds": ["f72193f9-8c72-4316-b5c5-45b5e41df152", "b50a4d91-5c2e-45f7-8c64-7e9bb8a9f93c"] },
+    { "id": "4ad8a847-3f7f-4870-812d-1fc0fbb7c8e3", "studentId": "1f91f8aa-d587-4057-8f8a-7c7d235b69a2", "veranstaltungsIds": ["b50a4d91-5c2e-45f7-8c64-7e9bb8a9f93c", "f14c60a5-1fb5-4521-9136-6b2ac78513e7"] }
   ]
 }

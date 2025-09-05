@@ -1,0 +1,248 @@
+{
+  "meta": {
+    "version": "2.0.0",
+    "generated": "2025-09-05",
+    "notes": "Mock-Daten für Stundenplan-Service mit Person-Hierarchie (Student, Mitarbeiter, Dozent)"
+  },
+
+  "users": [
+    { "id": "u-s-1001", "linkedEntityId": "s-1001", "role": "STUDENT", "username": "alex.mueller" },
+    { "id": "u-s-1002", "linkedEntityId": "s-1002", "role": "STUDENT", "username": "fatima.yilmaz" },
+    { "id": "u-s-1003", "linkedEntityId": "s-1003", "role": "STUDENT", "username": "jonas.weber" },
+    { "id": "u-d-2001", "linkedEntityId": "d-2001", "role": "DOZENT",  "username": "jana.roth" },
+    { "id": "u-d-2002", "linkedEntityId": "d-2002", "role": "DOZENT",  "username": "minh.nguyen" },
+    { "id": "u-m-3001", "linkedEntityId": "m-3001", "role": "MITARBEITER", "username": "sandra.schmidt" },
+    { "id": "u-admin-1", "linkedEntityId": null,   "role": "ADMIN",   "username": "admin" }
+  ],
+
+  "personen": [
+    {
+      "id": "p-1001",
+      "vorname": "Alex",
+      "nachname": "Müller",
+      "geburtsdatum": "2002-04-12",
+      "adresse": "Musterstraße 1, 12345 Musterstadt",
+      "telefonnummer": "+49 171 1234567",
+      "foto": null
+    },
+    {
+      "id": "p-1002",
+      "vorname": "Fatima",
+      "nachname": "Yilmaz",
+      "geburtsdatum": "2004-08-20",
+      "adresse": "Beispielweg 5, 54321 Beispielstadt",
+      "telefonnummer": "+49 176 9876543",
+      "foto": null
+    },
+    {
+      "id": "p-1003",
+      "vorname": "Jonas",
+      "nachname": "Weber",
+      "geburtsdatum": "2000-11-02",
+      "adresse": "Hauptstraße 23, 67890 Neustadt",
+      "telefonnummer": "+49 172 1112233",
+      "foto": null
+    },
+    {
+      "id": "p-2001",
+      "vorname": "Jana",
+      "nachname": "Roth",
+      "geburtsdatum": "1975-03-08",
+      "adresse": "Uniweg 12, 11111 Hochschulstadt",
+      "telefonnummer": "+49 221 7654321",
+      "foto": null
+    },
+    {
+      "id": "p-2002",
+      "vorname": "Minh",
+      "nachname": "Nguyen",
+      "geburtsdatum": "1980-09-15",
+      "adresse": "Campusallee 3, 22222 Hochschulstadt",
+      "telefonnummer": "+49 221 3334445",
+      "foto": null
+    },
+    {
+      "id": "p-2003",
+      "vorname": "Eva",
+      "nachname": "Schneider",
+      "geburtsdatum": "1988-05-21",
+      "adresse": "Akademiestraße 10, 33333 Studienort",
+      "telefonnummer": "+49 221 5556667",
+      "foto": null
+    },
+    {
+      "id": "p-3001",
+      "vorname": "Sandra",
+      "nachname": "Schmidt",
+      "geburtsdatum": "1985-02-28",
+      "adresse": "Serviceweg 9, 44444 Uniort",
+      "telefonnummer": "+49 221 8889990",
+      "foto": null
+    }
+  ],
+
+  "studenten": [
+    {
+      "id": "s-1001",
+      "personId": "p-1001",
+      "matrikelnummer": "20250001",
+      "studiengang": "Informatik",
+      "fachsemester": 3,
+      "studienstatus": "immatrikuliert",
+      "jahrgang": "BIN-T23",
+      "email": "alex.mueller@stud-hochschule.de"
+    },
+    {
+      "id": "s-1002",
+      "personId": "p-1002",
+      "matrikelnummer": "20250002",
+      "studiengang": "Data Science",
+      "fachsemester": 1,
+      "studienstatus": "immatrikuliert",
+      "jahrgang": "DS-T25",
+      "email": "fatima.yilmaz@stud-hochschule.de"
+    },
+    {
+      "id": "s-1003",
+      "personId": "p-1003",
+      "matrikelnummer": "20250003",
+      "studiengang": "Informatik",
+      "fachsemester": 5,
+      "studienstatus": "beurlaubt",
+      "jahrgang": "BIN-T21",
+      "email": "jonas.weber@stud-hochschule.de"
+    }
+  ],
+
+  "mitarbeiter": [
+    {
+      "id": "m-2001",
+      "personId": "p-2001",
+      "personalnummer": "D-001",
+      "abteilung": "Fakultät Informatik",
+      "buero": "E32",
+      "arbeitszeitmodell": "Vollzeit",
+      "email": "jana.roth@doz-hochschule.de"
+    },
+    {
+      "id": "m-2002",
+      "personId": "p-2002",
+      "personalnummer": "D-002",
+      "abteilung": "Fakultät Statistik",
+      "buero": "E12",
+      "arbeitszeitmodell": "Vollzeit",
+      "email": "minh.nguyen@doz-hochschule.de"
+    },
+    {
+      "id": "m-2003",
+      "personId": "p-2003",
+      "personalnummer": "D-003",
+      "abteilung": "Fakultät Softwaretechnik",
+      "buero": "E05",
+      "arbeitszeitmodell": "Teilzeit",
+      "email": "eva.schneider@doz-hochschule.de"
+    },
+    {
+      "id": "m-3001",
+      "personId": "p-3001",
+      "personalnummer": "M-101",
+      "abteilung": "IT-Support",
+      "buero": "E21",
+      "arbeitszeitmodell": "Vollzeit",
+      "email": "sandra.schmidt@hochschule.de"
+    }
+  ],
+
+  "dozenten": [
+    {
+      "id": "d-2001",
+      "mitarbeiterId": "m-2001",
+      "titel": "Prof. Dr.",
+      "fachgebiet": "Programmierung",
+      "beschaeftigungsstatus": "Vollzeit"
+    },
+    {
+      "id": "d-2002",
+      "mitarbeiterId": "m-2002",
+      "titel": "Dr.",
+      "fachgebiet": "Statistik",
+      "beschaeftigungsstatus": "Vollzeit"
+    },
+    {
+      "id": "d-2003",
+      "mitarbeiterId": "m-2003",
+      "titel": "M.Sc.",
+      "fachgebiet": "Software Engineering",
+      "beschaeftigungsstatus": "Extern"
+    }
+  ],
+
+  "raeume": [
+    { "id": "r-4001", "bezeichnung": "E32", "kapazitaet": 120, "gebaeude": "B836" },
+    { "id": "r-4002", "bezeichnung": "E12", "kapazitaet": 24,  "gebaeude": "B835" },
+    { "id": "r-4003", "bezeichnung": "E05", "kapazitaet": 40,  "gebaeude": "B836" },
+    { "id": "r-4004", "bezeichnung": "E21", "kapazitaet": 80,  "gebaeude": "B835" }
+  ],
+
+  "kurse": [
+    { "id": "c-5001", "code": "INF101", "titel": "Programmierung I",        "typ": "VORLESUNG", "dozentId": "d-2001" },
+    { "id": "c-5002", "code": "DS210",  "titel": "Statistik",               "typ": "UEBUNG",    "dozentId": "d-2002" },
+    { "id": "c-5003", "code": "INF330", "titel": "Software Engineering",    "typ": "PRAKTIKUM", "dozentId": "d-2003" },
+    { "id": "c-5004", "code": "INF150", "titel": "Algorithmen Tutorium",    "typ": "TUTORIUM",  "dozentId": "d-2003" },
+    { "id": "c-5005", "code": "INF101K","titel": "Programmierung I Klausur","typ": "KLAUSUR",   "dozentId": "d-2001" }
+  ],
+
+  "veranstaltungen": [
+    {
+      "id": "v-6001",
+      "courseId": "c-5001",
+      "raumId": "r-4001",
+      "wochentag": "TUESDAY",
+      "start": "2025-10-21T10:00:00",
+      "ende":  "2025-10-21T12:00:00",
+      "rhythmus": "WEEKLY"
+    },
+    {
+      "id": "v-6002",
+      "courseId": "c-5002",
+      "raumId": "r-4002",
+      "wochentag": "WEDNESDAY",
+      "start": "2025-10-22T14:00:00",
+      "ende":  "2025-10-22T16:00:00",
+      "rhythmus": "BIWEEKLY"
+    },
+    {
+      "id": "v-6003",
+      "courseId": "c-5003",
+      "raumId": "r-4003",
+      "wochentag": "THURSDAY",
+      "start": "2025-10-23T09:00:00",
+      "ende":  "2025-10-23T12:00:00",
+      "rhythmus": "WEEKLY"
+    },
+    {
+      "id": "v-6004",
+      "courseId": "c-5004",
+      "raumId": "r-4004",
+      "wochentag": "MONDAY",
+      "start": "2025-10-20T16:00:00",
+      "ende":  "2025-10-20T18:00:00",
+      "rhythmus": "WEEKLY"
+    },
+    {
+      "id": "v-6005",
+      "courseId": "c-5005",
+      "raumId": "r-4001",
+      "wochentag": "FRIDAY",
+      "start": "2026-02-13T10:00:00",
+      "ende":  "2026-02-13T12:00:00",
+      "rhythmus": "ONCE"
+    }
+  ],
+
+  "stundenplaene": [
+    { "id": "sp-7001", "studentId": "s-1001", "veranstaltungsIds": ["v-6001", "v-6002", "v-6004"] },
+    { "id": "sp-7002", "studentId": "s-1002", "veranstaltungsIds": ["v-6001", "v-6003"] },
+    { "id": "sp-7003", "studentId": "s-1003", "veranstaltungsIds": ["v-6003", "v-6005"] }
+  ]
+}

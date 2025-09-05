@@ -4,6 +4,9 @@ Hier kann irgendwer was reinschreiben
 ## Installation
 
 Download [node](https://nodejs.org/en/download) to run app. 
+
+Before the first start you have to do npm install.
+
 Start command: npm run script start or node app.js
 
 ## Open API
@@ -25,8 +28,6 @@ DB_USER =
 AUTH_DB_NAME = 
 DB_NAME = Prod
 DB_TEST = Test
-ACCESS_TOKEN_SECRET = Webshop-API-Auth_Secret
-REFRESH_TOKEN_SECRET= my_refresh_token_secret
 ACCESS_TOKEN_LIFETIME=3600       # Access-Token-Lebensdauer, z. B. 15 Minuten
 REFRESH_TOKEN_LIFETIME=360000    # Refresh-Token-Lebensdauer, z. B. 7 Tage
 ```
@@ -87,3 +88,7 @@ router.get("/", requireRole("view-profile"), (req, res) => {
 
 });
 ```
+
+## Testing 
+
+To get test JWT-Tokens you can call: http://localhost:4000/api/v1/login in Browser and copy it to e.g. Postmann. For API Requests you have to add Baerer Token. 

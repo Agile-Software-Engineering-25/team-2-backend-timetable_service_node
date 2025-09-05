@@ -120,7 +120,6 @@
       "personId": "p-2001",
       "personalnummer": "D-001",
       "abteilung": "Fakultät Informatik",
-      "buero": "E32",
       "arbeitszeitmodell": "Vollzeit",
       "email": "jana.roth@doz-hochschule.de"
     },
@@ -129,7 +128,6 @@
       "personId": "p-2002",
       "personalnummer": "D-002",
       "abteilung": "Fakultät Statistik",
-      "buero": "E12",
       "arbeitszeitmodell": "Vollzeit",
       "email": "minh.nguyen@doz-hochschule.de"
     },
@@ -138,7 +136,6 @@
       "personId": "p-2003",
       "personalnummer": "D-003",
       "abteilung": "Fakultät Softwaretechnik",
-      "buero": "E05",
       "arbeitszeitmodell": "Teilzeit",
       "email": "eva.schneider@doz-hochschule.de"
     },
@@ -147,7 +144,6 @@
       "personId": "p-3001",
       "personalnummer": "M-101",
       "abteilung": "IT-Support",
-      "buero": "E21",
       "arbeitszeitmodell": "Vollzeit",
       "email": "sandra.schmidt@hochschule.de"
     }

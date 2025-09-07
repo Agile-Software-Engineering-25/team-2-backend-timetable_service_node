@@ -5,7 +5,7 @@ function generateAccessToken(payload) {
 
     return jwt.sign(payload, secret, {
         algorithm: 'RS256',
-        expiresIn: process.env.ACCESS_TOKEN_LIFETIME | 3600,
+        expiresIn: process.env.ACCESS_TOKEN_LIFETIME || 3600,
     });
 }
 

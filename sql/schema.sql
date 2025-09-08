@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS events (
     course_id TEXT NOT NULL,
     study_group TEXT NOT NULL,
     lecturer TEXT,       -- Optional
-    type TEXT CHECK (type IN ('Kurs', 'Dekansprechstunde', 'Klausureinsicht', 'Prüfung', 'Sonstiges')) DEFAULT 'Kurs',
+    type TEXT CHECK (type IN ('Kurs', 'Dekansprechstunde', 'Klausureinsicht', 'Prüfung', 'E-Learning', 'Sonstiges')) DEFAULT 'Kurs',
     group_id TEXT,       -- Optional
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
 

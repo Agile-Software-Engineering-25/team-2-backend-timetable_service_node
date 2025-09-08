@@ -11,6 +11,7 @@ const EventType = {
   DEKANSPRECHSTUNDE: 'Dekansprechstunde',
   KLAUSUREINSICHT: 'Klausureinsicht',
   PRUEFUNG: 'Prüfung',
+  ELEARNING: 'E-Learning',
   SONSTIGES: 'Sonstiges'
 };
 

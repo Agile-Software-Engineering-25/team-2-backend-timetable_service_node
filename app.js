@@ -9,7 +9,8 @@ const { authJwt } = require('./helper/jwt');
 const pinoHttp = require('pino-http');
 const logger = require('./helper/logger');
 const { setContext } = require('./helper/context');
-const { randomUUID } = require("crypto")
+const { initDB } = require('./helper/getCon');
+const { generateTestToken } = require('./tests/helper/getTestToken');
 
 require("dotenv/config");
 
@@ -46,9 +47,6 @@ if (process.env.NODE_ENV == 'prod') {
 }
 //Routers
 const scheduleRouter = require("./routers/v1/schedule");
-const { initDB, query } = require('./helper/getCon');
-const { generateAccessToken } = require('./helper/accessToken');
-const { generateTestToken } = require('./tests/helper/getTestToken');
 
 const api = "/api/v1";
 

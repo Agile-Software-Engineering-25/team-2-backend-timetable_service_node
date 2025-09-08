@@ -1,9 +1,10 @@
 const listEndpoints = require('express-list-endpoints');
 require('dotenv/config');
 const fs = require("fs");
+const path = require("path");
 
-const APP_DIR = process.env.APP_DIR
-const doc_path = APP_DIR + '/openapi.json';
+const APP_DIR = process.env.APP_DIR || __dirname + '/../';
+const doc_path = path.join(APP_DIR, 'openapi.json');
 
 // Hole alle definierten Endpunkte
 
@@ -118,4 +119,4 @@ function capitalize(str) {
 
 
 
-module.exports = { catchEndpoints } 
+module.exports = { catchEndpoints }

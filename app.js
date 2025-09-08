@@ -12,12 +12,13 @@ const { setContext } = require('./helper/context');
 const { initDB } = require('./helper/getCon');
 const { generateTestToken } = require('./tests/helper/getTestToken');
 
-require("dotenv/config");
+const app = express();
+const PORT = process.env.PORT || 3000;
+const api = "/api/v1";
 
-
-//middleware
+// Middleware
+app.use(cors());
 app.use(bodyParser.json());
-
 
 app.use((req, res, next) => {
     setContext({ path: req.path, method: req.method, next });
@@ -35,13 +36,14 @@ app.use(pinoHttp({
             return {
                 method: req.method,
                 url: req.url,
-                path: req.path,       // 👈 explizit Pfad loggen
+                path: req.path,
                 query: req.query
             };
         }
     }
 }));
 
+// Authentication middleware (only in production)
 if (process.env.NODE_ENV == 'prod') {
     app.use(authJwt());
 }

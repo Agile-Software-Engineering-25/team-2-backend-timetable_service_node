@@ -1,44 +1,60 @@
 const express = require('express');
 const { query } = require('../../helper/getCon');
 const { requireRole } = require('../../helper/permission');
+const { Event, EventType, EventUtils } = require('../../models/Event');
 const router = express.Router();
 
-const examplePersonalEntry = {
-    course_id: "de305d54-75b4-431b-adb2-eb6b9e546014",
-    room_id: "a4f3e1ab-003f-4b88-b4cd-6e6e22a5c9cd",
-    lecturer_id: "c8763eaa-e57f-49a1-bbfb-7f22d6e4a55c",
-    group_id: "d1a113fd-d62e-4be1-92fc-2b0977c0c20d",
-    start_time: "2025-07-23T10:00:00Z",
-    end_time: "2025-07-23T12:00:00Z",
-    title: "Database Systems II"
-};
-
-const exampleEntry = {
-    courseId: "de305d54-75b4-431b-adb2-eb6b9e546014",
-    roomId: "a4f3e1ab-003f-4b88-b4cd-6e6e22a5c9cd",
-    lecturerId: "c8763eaa-e57f-49a1-bbfb-7f22d6e4a55c",
-    groupId: "d1a113fd-d62e-4be1-92fc-2b0977c0c20d",
-    startTime: "2025-07-23T10:00:00Z",
-    endTime: "2025-07-23T12:00:00Z",
-    title: "Database Systems II"
-};
+// Beispiel-Events mit dem neuen Datenmodell
+const exampleEvents = [
+    new Event({
+        time: "2025-07-23T10:00:00Z",
+        endTime: "2025-07-23T12:00:00Z",
+        title: "Database Systems II",
+        roomId: "a4f3e1ab-003f-4b88-b4cd-6e6e22a5c9cd",
+        courseId: "de305d54-75b4-431b-adb2-eb6b9e546014",
+        studyGroup: "INF21A",
+        lecturer: "Prof. Dr. Schmidt",
+        type: EventType.KURS,
+        groupId: "d1a113fd-d62e-4be1-92fc-2b0977c0c20d"
+    }),
+    new Event({
+        time: "2025-07-23T14:00:00Z",
+        endTime: "2025-07-23T15:30:00Z",
+        title: "Sprechstunde Dekan",
+        roomId: "b5g4f2bc-114g-5c99-c5de-7f7f33b6d0de",
+        courseId: "SPRECHSTUNDE-001",
+        studyGroup: "ALLE",
+        lecturer: "Prof. Dr. Müller",
+        type: EventType.DEKANSPRECHSTUNDE
+    })
+];
 
 router.get("", requireRole("view-profile"), (req, res) => {
-    const { courseId, lecturerId, roomId } = req.query;
-    console.log(req.user)
+    const { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
+    console.log(req.user);
 
-    // Filter-Beispiel (sehr rudimentär)
-    let result = [exampleEntry];
-    if (courseId && courseId !== exampleEntry.courseId) result = [];
-    if (lecturerId && lecturerId !== exampleEntry.lecturerId) result = [];
-    if (roomId && roomId !== exampleEntry.roomId) result = [];
+    // Filter mit dem neuen Event.filter System
+    const filters = {};
+    if (courseId) filters.courseId = courseId;
+    if (lecturerId) filters.lecturer = lecturerId;
+    if (roomId) filters.roomId = roomId;
+    if (studyGroup) filters.studyGroup = studyGroup;
+    if (type) filters.type = type;
+    if (startTime && endTime) {
+        filters.startTime = startTime;
+        filters.endTime = endTime;
+    }
+
+    let result = Event.filter(exampleEvents, filters);
 
     if (result.length === 0) {
         return res.status(404).json({ error: "No entries found" });
     }
-    res.json({
-        "2025-07-23": result
-    });
+
+    // Gruppierung nach Datum
+    const groupedByDate = EventUtils.groupByDate(result);
+
+    res.json(groupedByDate);
 });
 router.get("/personal", requireRole("view-prfffofile"), (req, res) => {
     const { courseId, lecturerId, roomId } = req.query;
@@ -52,10 +68,35 @@ router.get("/personal", requireRole("view-prfffofile"), (req, res) => {
         return res.status(404).json({ error: "No entries found" });
     }
 
-    res.json({
-        "2025-07-23": result
-    });
+    // Sortierung nach Zeit
+    result = EventUtils.sortByTime(result);
+
+    // Gruppierung nach Datum
+    const groupedByDate = EventUtils.groupByDate(result);
+
+    res.json(groupedByDate);
 });
 
+// Neue Route für Event-Management
+router.post("", requireRole("manage-schedule"), (req, res) => {
+    try {
+        const event = new Event(req.body);
+        // Hier würde normalerweise die Datenbank-Speicherung erfolgen
+        res.status(201).json(event.toJSON());
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+// Route für Konfliktprüfung
+router.get("/conflicts", requireRole("view-profile"), (req, res) => {
+    const conflicts = EventUtils.findConflicts(exampleEvents);
+    res.json(conflicts);
+});
+
+// Route für verfügbare Event-Typen
+router.get("/types", requireRole("view-profile"), (req, res) => {
+    res.json(Object.values(EventType));
+});
 
 module.exports = router;

@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "version": "2.1",
+    "generated": "2025-09-05",
+    "notes": "Mock-Daten mit UUID-IDs für Stundenplan-Service (Person, Student, Mitarbeiter, Dozent)"
+  },
+
+  "users": [
+    { "id": "9d1f9bde-1c59-4e7d-89a3-fcd91e8a2b11", "linkedEntityId": "2f3a9a07-4f35-4c28-8d79-5f9639c59f4c", "role": "STUDENT", "username": "alex.mueller" },
+    { "id": "c1d2330a-3b9c-4c21-87db-f43eb2d129d9", "linkedEntityId": "6cf5a2f9-df6f-4f55-b55e-22ef0c7de733", "role": "STUDENT", "username": "fatima.yilmaz" },
+    { "id": "1588c372-6ad4-44f7-ae9c-77452a7e41d5", "linkedEntityId": "1f91f8aa-d587-4057-8f8a-7c7d235b69a2", "role": "STUDENT", "username": "jonas.weber" },
+    { "id": "ba639d21-3e55-4f40-b420-bf947b445e64", "linkedEntityId": "15389065-daf0-4a2e-bae5-2e3f024a7921", "role": "DOZENT",  "username": "jana.roth" },
+    { "id": "ad2f08b4-1c68-4f87-91df-1b32c5864e7d", "linkedEntityId": "e2193aa1-63a0-470a-b6ed-3bcbb73d42db", "role": "DOZENT",  "username": "minh.nguyen" },
+    { "id": "89d6e254-69e4-47d8-95c7-03e5c20f0b11", "linkedEntityId": "e74505fb-6b08-482b-b1b6-87c567a07b1a", "role": "MITARBEITER", "username": "sandra.schmidt" },
+    { "id": "bdad3295-78fd-4f9c-b21f-13f2207fc215", "linkedEntityId": null, "role": "ADMIN", "username": "admin" }
+  ],
+
+  "personen": [
+    {
+      "id": "c3e8f705-b23e-4a12-86c8-8af370c1145a",
+      "vorname": "Alex",
+      "nachname": "Müller",
+      "geburtsdatum": "2002-04-12",
+      "adresse": "Musterstraße 1, 12345 Musterstadt",
+      "telefonnummer": "+49 171 1234567",
+      "foto": null
+    },
+    {
+      "id": "a5f6e029-291a-4d36-9f9b-f57a1bfb77e2",
+      "vorname": "Fatima",
+      "nachname": "Yilmaz",
+      "geburtsdatum": "2004-08-20",
+      "adresse": "Beispielweg 5, 54321 Beispielstadt",
+      "telefonnummer": "+49 176 9876543",
+      "foto": null
+    },
+    {
+      "id": "f6b1d822-47c9-4dd2-95d7-2f7a9c4db2b3",
+      "vorname": "Jonas",
+      "nachname": "Weber",
+      "geburtsdatum": "2000-11-02",
+      "adresse": "Hauptstraße 23, 67890 Neustadt",
+      "telefonnummer": "+49 172 1112233",
+      "foto": null
+    },
+    {
+      "id": "8a707c82-3c6f-4f3c-8e7e-64a84aeb82c5",
+      "vorname": "Jana",
+      "nachname": "Roth",
+      "geburtsdatum": "1975-03-08",
+      "adresse": "Uniweg 12, 11111 Hochschulstadt",
+      "telefonnummer": "+49 221 7654321",
+      "foto": null
+    },
+    {
+      "id": "84e78238-c45d-4a5f-8f7f-0c74b86d32c8",
+      "vorname": "Minh",
+      "nachname": "Nguyen",
+      "geburtsdatum": "1980-09-15",
+      "adresse": "Campusallee 3, 22222 Hochschulstadt",
+      "telefonnummer": "+49 221 3334445",
+      "foto": null
+    },
+    {
+      "id": "9e49a5a5-32a9-4c58-82b6-08611f9b9d8e",
+      "vorname": "Eva",
+      "nachname": "Schneider",
+      "geburtsdatum": "1988-05-21",
+      "adresse": "Akademiestraße 10, 33333 Studienort",
+      "telefonnummer": "+49 221 5556667",
+      "foto": null
+    },
+    {
+      "id": "b1a5c2d7-44b6-49f1-9e48-d285ce8367a3",
+      "vorname": "Sandra",
+      "nachname": "Schmidt",
+      "geburtsdatum": "1985-02-28",
+      "adresse": "Serviceweg 9, 44444 Uniort",
+      "telefonnummer": "+49 221 8889990",
+      "foto": null
+    }
+  ],
+
+  "studenten": [
+    {
+      "id": "2f3a9a07-4f35-4c28-8d79-5f9639c59f4c",
+      "personId": "c3e8f705-b23e-4a12-86c8-8af370c1145a",
+      "matrikelnummer": "20250001",
+      "studiengang": "Informatik",
+      "fachsemester": 3,
+      "studienstatus": "immatrikuliert",
+      "jahrgang": "BIN-T23",
+      "email": "alex.mueller@stud-hochschule.de"
+    },
+    {
+      "id": "6cf5a2f9-df6f-4f55-b55e-22ef0c7de733",
+      "personId": "a5f6e029-291a-4d36-9f9b-f57a1bfb77e2",
+      "matrikelnummer": "20250002",
+      "studiengang": "Data Science",
+      "fachsemester": 1,
+      "studienstatus": "immatrikuliert",
+      "jahrgang": "DS-T25",
+      "email": "fatima.yilmaz@stud-hochschule.de"
+    },
+    {
+      "id": "1f91f8aa-d587-4057-8f8a-7c7d235b69a2",
+      "personId": "f6b1d822-47c9-4dd2-95d7-2f7a9c4db2b3",
+      "matrikelnummer": "20250003",
+      "studiengang": "Informatik",
+      "fachsemester": 5,
+      "studienstatus": "beurlaubt",
+      "jahrgang": "BIN-T21",
+      "email": "jonas.weber@stud-hochschule.de"
+    }
+  ],
+
+  "mitarbeiter": [
+    {
+      "id": "ff993132-13ab-4699-9c2c-56e1a6b5fa93",
+      "personId": "8a707c82-3c6f-4f3c-8e7e-64a84aeb82c5",
+      "personalnummer": "D-001",
+      "abteilung": "Fakultät Informatik",
+      "arbeitszeitmodell": "Vollzeit",
+      "email": "jana.roth@doz-hochschule.de"
+    },
+    {
+      "id": "e2193aa1-63a0-470a-b6ed-3bcbb73d42db",
+      "personId": "84e78238-c45d-4a5f-8f7f-0c74b86d32c8",
+      "personalnummer": "D-002",
+      "abteilung": "Fakultät Statistik",
+      "arbeitszeitmodell": "Vollzeit",
+      "email": "minh.nguyen@doz-hochschule.de"
+    },
+    {
+      "id": "bcf9f39e-3a39-45b2-8c82-508f3f6ff221",
+      "personId": "9e49a5a5-32a9-4c58-82b6-08611f9b9d8e",
+      "personalnummer": "D-003",
+      "abteilung": "Fakultät Softwaretechnik",
+      "arbeitszeitmodell": "Teilzeit",
+      "email": "eva.schneider@doz-hochschule.de"
+    },
+    {
+      "id": "e74505fb-6b08-482b-b1b6-87c567a07b1a",
+      "personId": "b1a5c2d7-44b6-49f1-9e48-d285ce8367a3",
+      "personalnummer": "M-101",
+      "abteilung": "IT-Support",
+      "arbeitszeitmodell": "Vollzeit",
+      "email": "sandra.schmidt@hochschule.de"
+    }
+  ],
+
+  "dozenten": [
+    {
+      "id": "15389065-daf0-4a2e-bae5-2e3f024a7921",
+      "mitarbeiterId": "ff993132-13ab-4699-9c2c-56e1a6b5fa93",
+      "titel": "Prof. Dr.",
+      "fachgebiet": "Programmierung",
+      "beschaeftigungsstatus": "Vollzeit"
+    },
+    {
+      "id": "e2193aa1-63a0-470a-b6ed-3bcbb73d42db",
+      "mitarbeiterId": "e2193aa1-63a0-470a-b6ed-3bcbb73d42db",
+      "titel": "Dr.",
+      "fachgebiet": "Statistik",
+      "beschaeftigungsstatus": "Vollzeit"
+    },
+    {
+      "id": "ca4dfda5-6a7d-46f1-88e2-18d178f2d890",
+      "mitarbeiterId": "bcf9f39e-3a39-45b2-8c82-508f3f6ff221",
+      "titel": "M.Sc.",
+      "fachgebiet": "Software Engineering",
+      "beschaeftigungsstatus": "Extern"
+    }
+  ],
+
+  "raeume": [
+    { "id": "47f9e3e3-3c21-4d36-8f0e-31d5cfadf922", "bezeichnung": "E32", "kapazitaet": 120, "gebaeude": "B836" },
+    { "id": "4bb1f82b-9313-497a-9f65-3e7dcf87e743", "bezeichnung": "E12", "kapazitaet": 24, "gebaeude": "B835" },
+    { "id": "c241e9b2-3f3d-4e67-9e91-b7c394c3422c", "bezeichnung": "E05", "kapazitaet": 40, "gebaeude": "B836" },
+    { "id": "6f246e11-5a3d-44e8-b87c-26e3c91b71a5", "bezeichnung": "E21", "kapazitaet": 80, "gebaeude": "B835" }
+  ],
+
+  "kurse": [
+    { "id": "6ad7b8c8-0b23-4e1a-8d8f-4a9f1b4f0e24", "code": "INF101", "titel": "Programmierung I", "typ": "VORLESUNG", "dozentId": "15389065-daf0-4a2e-bae5-2e3f024a7921" },
+    { "id": "a26b44c1-40df-4486-9095-d9bc5e4449d7", "code": "DS210", "titel": "Statistik", "typ": "UEBUNG", "dozentId": "e2193aa1-63a0-470a-b6ed-3bcbb73d42db" },
+    { "id": "c9a6e4a3-b3d7-45a1-9d1c-5c6a4e8f0a9d", "code": "INF330", "titel": "Software Engineering", "typ": "PRAKTIKUM", "dozentId": "ca4dfda5-6a7d-46f1-88e2-18d178f2d890" },
+    { "id": "edb791e0-f1c7-45d1-bd9c-4368bc92c10c", "code": "INF150", "titel": "Algorithmen Tutorium", "typ": "TUTORIUM", "dozentId": "ca4dfda5-6a7d-46f1-88e2-18d178f2d890" },
+    { "id": "28a9df4e-312d-44b3-bb7c-998e21bb8b07", "code": "INF101K", "titel": "Programmierung I Klausur", "typ": "KLAUSUR", "dozentId": "15389065-daf0-4a2e-bae5-2e3f024a7921" }
+  ],
+
+  "veranstaltungen": [
+    {
+      "id": "f72193f9-8c72-4316-b5c5-45b5e41df152",
+      "courseId": "6ad7b8c8-0b23-4e1a-8d8f-4a9f1b4f0e24",
+      "raumId": "47f9e3e3-3c21-4d36-8f0e-31d5cfadf922",
+      "wochentag": "TUESDAY",
+      "start": "2025-10-21T10:00:00",
+      "ende":  "2025-10-21T12:00:00",
+      "rhythmus": "WEEKLY"
+    },
+    {
+      "id": "d892f92d-d2f1-49f6-8b3a-38f273da9f5e",
+      "courseId": "a26b44c1-40df-4486-9095-d9bc5e4449d7",
+      "raumId": "4bb1f82b-9313-497a-9f65-3e7dcf87e743",
+      "wochentag": "WEDNESDAY",
+      "start": "2025-10-22T14:00:00",
+      "ende":  "2025-10-22T16:00:00",
+      "rhythmus": "BIWEEKLY"
+    },
+    {
+      "id": "b50a4d91-5c2e-45f7-8c64-7e9bb8a9f93c",
+      "courseId": "c9a6e4a3-b3d7-45a1-9d1c-5c6a4e8f0a9d",
+      "raumId": "c241e9b2-3f3d-4e67-9e91-b7c394c3422c",
+      "wochentag": "THURSDAY",
+      "start": "2025-10-23T09:00:00",
+      "ende":  "2025-10-23T12:00:00",
+      "rhythmus": "WEEKLY"
+    },
+    {
+      "id": "c91e13da-5c42-45fa-8b52-8f918c4bdb3a",
+      "courseId": "edb791e0-f1c7-45d1-bd9c-4368bc92c10c",
+      "raumId": "6f246e11-5a3d-44e8-b87c-26e3c91b71a5",
+      "wochentag": "MONDAY",
+      "start": "2025-10-20T16:00:00",
+      "ende":  "2025-10-20T18:00:00",
+      "rhythmus": "WEEKLY"
+    },
+    {
+      "id": "f14c60a5-1fb5-4521-9136-6b2ac78513e7",
+      "courseId": "28a9df4e-312d-44b3-bb7c-998e21bb8b07",
+      "raumId": "47f9e3e3-3c21-4d36-8f0e-31d5cfadf922",
+      "wochentag": "FRIDAY",
+      "start": "2026-02-13T10:00:00",
+      "ende":  "2026-02-13T12:00:00",
+      "rhythmus": "ONCE"
+    }
+  ],
+
+  "stundenplaene": [
+    { "id": "df9c41fb-2c5e-4c33-bf73-234d7cbfa144", "studentId": "2f3a9a07-4f35-4c28-8d79-5f9639c59f4c", "veranstaltungsIds": ["f72193f9-8c72-4316-b5c5-45b5e41df152", "d892f92d-d2f1-49f6-8b3a-38f273da9f5e", "c91e13da-5c42-45fa-8b52-8f918c4bdb3a"] },
+    { "id": "fe71f3e1-07f4-4713-a599-7d2c23cf84c4", "studentId": "6cf5a2f9-df6f-4f55-b55e-22ef0c7de733", "veranstaltungsIds": ["f72193f9-8c72-4316-b5c5-45b5e41df152", "b50a4d91-5c2e-45f7-8c64-7e9bb8a9f93c"] },
+    { "id": "4ad8a847-3f7f-4870-812d-1fc0fbb7c8e3", "studentId": "1f91f8aa-d587-4057-8f8a-7c7d235b69a2", "veranstaltungsIds": ["b50a4d91-5c2e-45f7-8c64-7e9bb8a9f93c", "f14c60a5-1fb5-4521-9136-6b2ac78513e7"] }
+  ]
+}

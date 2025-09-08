@@ -1,25 +1,28 @@
 require('dotenv/config');
 const { expressjwt: jwt } = require("express-jwt");
 const logger = require('./logger');
-
+const fs = require('fs')
 function authJwt() {
   try {
-    const secret = process.env.ACCESS_TOKEN_SECRET;
+    const secret = fs.readFileSync('./keys/public.pem');
     const jwtMiddleware = jwt({
       secret,
-      algorithms: ["HS256"],
+      algorithms: ["RS256"],
       requestProperty: "user",
       isRevoked,
     });
 
     const flattenUser = (req, res, next) => {
-      if (req.user && req.user.user) {
-        req.user = req.user.user; // nur der user Teil
+      req.user = {
+        realm_access: req.user.realm_access,
+        resource_access: req.user.resource_access,
       }
+      // nur der user Teil
       next();
     };
     // return eine kombinierte Middleware für Express
     const openPaths = [
+      { url: /\/api\/v1\/login(.*)/, methods: ["GET", "OPTIONS"] },
 
       process.env.NODE_ENV != 'prod' ? { url: /\/api\/v4\/docs(.*)/, methods: ["GET", "OPTIONS"] } : {},
 
@@ -53,11 +56,7 @@ async function isRevoked(req, token) {
     if (!token.payload?.user) {
       return false;
     }
-
-    // Optional: nur Admins erlauben
-    if (!token.payload.user.isAdmin) {
-      return true;
-    }
+    // invalid token - synchronous
 
     return false;
   } catch (error) {

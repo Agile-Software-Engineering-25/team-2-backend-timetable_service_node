@@ -9,13 +9,16 @@ const { authJwt } = require('./helper/jwt');
 const pinoHttp = require('pino-http');
 const logger = require('./helper/logger');
 const { setContext } = require('./helper/context');
+const { initDB } = require('./helper/getCon');
+const { generateTestToken } = require('./tests/helper/getTestToken');
 
-require("dotenv/config");
+const app = express();
+const PORT = process.env.PORT || 3000;
+const api = "/api/v1";
 
-
-//middleware
+// Middleware
+app.use(cors());
 app.use(bodyParser.json());
-
 
 app.use((req, res, next) => {
     setContext({ path: req.path, method: req.method, next });
@@ -33,13 +36,14 @@ app.use(pinoHttp({
             return {
                 method: req.method,
                 url: req.url,
-                path: req.path,       // 👈 explizit Pfad loggen
+                path: req.path,
                 query: req.query
             };
         }
     }
 }));
 
+// Authentication middleware (only in production)
 if (process.env.NODE_ENV == 'prod') {
     app.use(authJwt());
 }
@@ -52,11 +56,17 @@ app.use(`${api}/schedule`, scheduleRouter);
 
 
 app.use(api + '/docs', swaggerUi.serve, swaggerUi.setup(catchEndpoints(app)));
+app.get(api + "/login", (req, res) => {
+    return res.status(200).send(generateTestToken())
+});
 
 if (process.env.NODE_ENV != 'test') {
     app.listen(
         process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT,
         async () => {
+            await initDB()
+
+
             console.log("Start Up")
 
             console.log(

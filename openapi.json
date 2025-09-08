@@ -11,8 +11,8 @@
         "tags": [
           "Schedule"
         ],
-        "summary": "Returns scheduled events (Datum als JSON-Key)",
-        "description": "Gibt einen Zeitplan zurück, bei dem das Datum als Property-Name im JSON verwendet wird",
+        "summary": "Returns scheduled events (Date als JSON-Key)",
+        "description": "Gibt einen Zeitplan zurück, bei dem das Date als Property-Name im JSON verwendet wird",
         "parameters": [
           {
             "name": "courseId",

@@ -99,4 +99,14 @@ router.get("/types", requireRole("view-profile"), (req, res) => {
     res.json(Object.values(EventType));
 });
 
+router.get("/all", requireRole("Verwaltung"), async (req, res) => {
+    try {
+        const result = await query("SELECT * FROM events")
+        return res.status(200).json(result);
+    } catch (error) {
+        logger.error(error, "Error while fetching events from DB")
+        return res.status(500).send("Internal Server Error")
+    }
+});
+
 module.exports = router;

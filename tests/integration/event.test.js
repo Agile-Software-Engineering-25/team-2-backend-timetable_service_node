@@ -47,7 +47,7 @@ afterAll(async () => {
     if (server) server.close()           // stop HTTP server
 });
 
-describe('POST /api/v1/schedule/all', () => {
+describe('GET /api/v1/schedule/all', () => {
     it('should get all scheduled events', async () => {
 
 

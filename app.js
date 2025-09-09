@@ -12,9 +12,7 @@ const { setContext } = require('./helper/context');
 const { initDB } = require('./helper/getCon');
 const { generateTestToken } = require('./tests/helper/getTestToken');
 
-const app = express();
 const PORT = process.env.PORT || 3000;
-const api = "/api/v1";
 
 // Middleware
 app.use(cors());
@@ -44,9 +42,9 @@ app.use(pinoHttp({
 }));
 
 // Authentication middleware (only in production)
-if (process.env.NODE_ENV == 'prod') {
-    app.use(authJwt());
-}
+// if (process.env.NODE_ENV == 'prod') {
+app.use(authJwt());
+// }
 //Routers
 const scheduleRouter = require("./routers/v1/schedule");
 
@@ -60,20 +58,20 @@ app.get(api + "/login", (req, res) => {
     return res.status(200).send(generateTestToken())
 });
 
-if (process.env.NODE_ENV != 'test') {
-    app.listen(
-        process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT,
-        async () => {
-            await initDB()
 
 
-            console.log("Start Up")
-
-            console.log(
-                "Server is running now on the URL http://localhost:" +
-                (process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT)
-            );
-        }
-    );
+async function startServer() {
+    await initDB()
+    const port = process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT
+    const server = app.listen(port, () => {
+        console.log(`Server running on http://localhost:${port}`)
+    })
+    return server
 }
-module.exports = app
+
+
+if (require.main === module) {
+    startServer()
+}
+
+module.exports = { app, startServer }

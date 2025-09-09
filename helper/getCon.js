@@ -2,8 +2,8 @@
 const sqlite3 = require("sqlite3")
 const pkg = require("pg")
 
-const isDev = process.env.NODE_ENV === "dev"
-
+const isDev = process.env.NODE_ENV !== "prod"
+console.log(process.env.NODE_ENV)
 let client
 async function initDB() {
     if (isDev) {
@@ -33,6 +33,7 @@ async function initDB() {
  * @param {Array} params - Parameter (Platzhalter: ? bei SQLite, $1,$2,... bei Postgres)
  */
 function query(sql, params = []) {
+    console.log(isDev)
     return new Promise((resolve, reject) => {
         if (isDev) {
             // SQLite erwartet ?-Platzhalter

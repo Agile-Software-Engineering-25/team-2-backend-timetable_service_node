@@ -135,6 +135,42 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Auto-generiert: POST /api/v1/schedule",
+        "tags": [
+          "Schedule"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Erfolg"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {}
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/schedule/personal": {
@@ -259,6 +295,87 @@
                 "examples": {
                   "error": {
                     "value": "Internal Server Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/schedule/conflicts": {
+      "get": {
+        "summary": "Auto-generiert: GET /api/v1/schedule/conflicts",
+        "tags": [
+          "Schedule"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Erfolg"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/schedule/types": {
+      "get": {
+        "summary": "Auto-generiert: GET /api/v1/schedule/types",
+        "tags": [
+          "Schedule"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Erfolg"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/schedule/all": {
+      "get": {
+        "summary": "Auto-generiert: GET /api/v1/schedule/all",
+        "tags": [
+          "Schedule"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Erfolg"
+                    }
                   }
                 }
               }

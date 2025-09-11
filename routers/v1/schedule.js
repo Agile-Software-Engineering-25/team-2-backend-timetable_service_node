@@ -3,6 +3,7 @@ const { query } = require('../../helper/getCon');
 const { requireRole } = require('../../helper/permission');
 const { Event, EventType, EventUtils } = require('../../models/Event');
 const { getEntries } = require('../../helper/getEntries');
+const logger = require('../../helper/logger');
 const router = express.Router();
 
 // Beispiel-Events mit dem neuen Datenmodell
@@ -48,13 +49,14 @@ router.get("", requireRole("view-profile"), async (req, res) => {
         return res.status(500).send("Inernal Server Error");
     }
 });
-router.get("/personal", requireRole("view"), async (req, res) => {
+router.get("/personal", requireRole("view-profile"), async (req, res) => {
     const filter = { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
     const userMail = req.user.email;
 
     /*
         User ID und die Gruppe mit Mail abfragen 
     */
+
     try {
         const result = await getEntries(filter, userMail);
         if (result.length === 0) {
@@ -63,6 +65,8 @@ router.get("/personal", requireRole("view"), async (req, res) => {
         return res.status(200).send(result)
     }
     catch (error) {
+        console.log(error)
+        logger.error(error, `Could not fetch personal events ${JSON.stringify(filter)}`)
         return res.status(500).send("Inernal Server Error")
     }
 });

@@ -5,9 +5,9 @@ async function getEntries(filter, user = null) {
     const filters = [];
     const params = [];
 
-    if (user.lecturer) {
-        filter.lecturer = lecturer;
-    }
+    // if (user.lecturer) {
+    //     filter.lecturer = lecturer;
+    // }
     // Basisabfrage
     let getEntries = "SELECT * FROM events"
     if (filter.courseId) {
@@ -15,7 +15,7 @@ async function getEntries(filter, user = null) {
         params.push(filter.courseId)
     }
     if (filter.lecturerId) {
-        filters.push("lecturerId = ?");
+        filters.push("lecturer_id = ?");
         params.push(filter.lecturerId)
     }
     if (filter.roomId) {
@@ -36,14 +36,28 @@ async function getEntries(filter, user = null) {
     }
     // Filter anhängen
     if (filters.length > 0) {
-        getEntries += 'WHERE ' + filters.join(" AND ");
+        getEntries += ' WHERE ' + filters.join(" AND ");
     }
     getEntries += " GROUP BY time "
     // Sortierung und Paginierung
     getEntries += " ORDER BY time ";
     try {
+        logger.info(`Query: ${getEntries} | Parms: ${params}`)
         const entries = await query(getEntries, params);
-        return entries;
+        const result = [];
+        logger.debug(entries)
+        entries.forEach(entry => {
+            result.push({
+                title: entry.title,
+                room_id: entry.room_id,
+                lecturer_id: entry.lecturer_id,
+                group_id: entry.group_id,
+                start_time: entry.time,
+                end_time: entry.end_time,
+                course_id: entry.course_id
+            })
+        });
+        return result;
     }
     catch (error) {
         logger.error(error, "Error fetching filtered shedules");

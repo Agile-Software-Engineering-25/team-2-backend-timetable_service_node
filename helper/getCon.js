@@ -11,7 +11,6 @@ async function initDB() {
         client = new sqlite3.Database("./dev.db")
         // Foreign keys aktivieren (wichtig für Kompatibilität mit Postgres)
         client.exec("PRAGMA foreign_keys = ON;")
-        console.log("SQLite Datenbank initialisiert")
     } else {
         // Postgres
         const { Client } = pkg
@@ -33,7 +32,6 @@ async function initDB() {
  * @param {Array} params - Parameter (Platzhalter: ? bei SQLite, $1,$2,... bei Postgres)
  */
 function query(sql, params = []) {
-    console.log(isDev)
     return new Promise((resolve, reject) => {
         if (isDev) {
             // SQLite erwartet ?-Platzhalter

@@ -40,17 +40,18 @@ router.get("", requireRole("view-profile"), async (req, res) => {
     try {
         const result = await getEntries(filter, userMail);
         if (result.length === 0) {
-            return res.status(404).send("No Entries found")
+            return res.status(404).send("No Entries found");
         }
         return res.status(200).send(result)
     }
     catch (error) {
-        return res.status(500).send("Inernal Server Error")
+        return res.status(500).send("Inernal Server Error");
     }
 });
 router.get("/personal", requireRole("view"), async (req, res) => {
     const filter = { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
     const userMail = req.user.email;
+
     /*
         User ID und die Gruppe mit Mail abfragen 
     */

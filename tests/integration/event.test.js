@@ -36,7 +36,6 @@ beforeAll(async () => {
     `;
     await query(createTable)
     await query(insertSampleData)
-    console.log("TestDB Prepared")
 });
 
 afterEach(async () => {
@@ -58,9 +57,6 @@ describe('GET /api/v1/schedule/all', () => {
 
         expect(response.status).toBe(200);
         expect(response.body).toBeDefined();
-        console.log(response.body)
-        // Prüfen, ob Eintrag in DB ist
-        console.log(response.body.length)
         expect(response.body.length).toBe(5)
         const singleEvent = response.body[0]
         expect(singleEvent).toEqual(

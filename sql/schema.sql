@@ -8,11 +8,10 @@ CREATE TABLE IF NOT EXISTS events (
     room_id TEXT NOT NULL,
     course_id TEXT NOT NULL,
     study_group TEXT NOT NULL,
-    lecturer TEXT,       -- Optional
+    lecturer TEXT NOT NULL,       -- Optional
     type TEXT CHECK (type IN ('Kurs', 'Dekansprechstunde', 'Klausureinsicht', 'Prüfung', 'E-Learning', 'Sonstiges')) DEFAULT 'Kurs',
     group_id TEXT,       -- Optional
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
-
     );
 
 -- Index für bessere Performance bei häufigen Abfragen

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "2.1",
+    "version": "3.0",
     "generated": "2025-09-05",
     "notes": "Mock-Daten mit UUID-IDs für Stundenplan-Service (Person, Student, Mitarbeiter, Dozent)"
   },
@@ -111,6 +111,60 @@
       "adresse": "Serviceweg 9, 44444 Uniort",
       "telefonnummer": "+49 221 8889990",
       "foto": null
+    },
+    {
+      "id": "fa6b2a1c-42ce-4c53-b5df-7c1edbfc5d12",
+      "vorname": "Lea",
+      "nachname": "Hoffmann",
+      "geburtsdatum": "2004-02-14",
+      "adresse": "Campusweg 7, 70174 Stuttgart",
+      "telefonnummer": "+49 711 5550001",
+      "foto": null
+    },
+    {
+      "id": "eaf1c5a2-61c4-43e5-85a1-df7fbc31d2f9",
+      "vorname": "Markus",
+      "nachname": "Klein",
+      "geburtsdatum": "2003-07-09",
+      "adresse": "Neckarstr. 15, 70372 Stuttgart",
+      "telefonnummer": "+49 711 5550002",
+      "foto": null
+    },
+    {
+      "id": "b7d3e8c4-9f2e-4f15-8c2a-7d3f6b2a9f5e",
+      "vorname": "Sophie",
+      "nachname": "Wagner",
+      "geburtsdatum": "2006-01-11",
+      "adresse": "Hauptstr. 2, 71634 Ludwigsburg",
+      "telefonnummer": "+49 711 5550003",
+      "foto": null
+    },
+    {
+      "id": "c2f1d7e3-8a6b-4f9e-9c5f-1d2a3b4c5e6f",
+      "vorname": "Daniel",
+      "nachname": "Fischer",
+      "geburtsdatum": "2002-12-03",
+      "adresse": "Kernerstr. 8, 70182 Stuttgart",
+      "telefonnummer": "+49 711 5550004",
+      "foto": null
+    },
+    {
+      "id": "a1b2c3d4-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      "vorname": "Laura",
+      "nachname": "Becker",
+      "geburtsdatum": "2003-10-06",
+      "adresse": "Bopserstr. 1, 70180 Stuttgart",
+      "telefonnummer": "+49 711 5550005",
+      "foto": null
+    },
+    {
+      "id": "d1e2f3a4-b5c6-47d8-9e0f-1a2b3c4d5e6f",
+      "vorname": "Tobias",
+      "nachname": "Schneider",
+      "geburtsdatum": "2001-05-17",
+      "adresse": "Seestr. 12, 70174 Stuttgart",
+      "telefonnummer": "+49 711 5550006",
+      "foto": null
     }
   ],
   "studenten": [
@@ -177,6 +231,66 @@
       "abteilung": "IT-Support",
       "arbeitszeitmodell": "Vollzeit",
       "email": "sandra.schmidt@hochschule.de"
+    },
+    {
+      "id": "d2f71e35-9b7a-4f12-8c7a-0e4a12e1f5a7",
+      "personId": "fa6b2a1c-42ce-4c53-b5df-7c1edbfc5d12",
+      "matrikelnummer": "20250004",
+      "studiengang": "Informatik",
+      "fachsemester": 2,
+      "studienstatus": "immatrikuliert",
+      "jahrgang": "BIN-T24",
+      "email": "lea.hoffmann@stud-hochschule.de"
+    },
+    {
+      "id": "c4a9e9b1-64f2-4d6b-9a12-3d3e3d5a7c2f",
+      "personId": "eaf1c5a2-61c4-43e5-85a1-df7fbc31d2f9",
+      "matrikelnummer": "20250005",
+      "studiengang": "Data Science",
+      "fachsemester": 3,
+      "studienstatus": "immatrikuliert",
+      "jahrgang": "DS-T23",
+      "email": "markus.klein@stud-hochschule.de"
+    },
+    {
+      "id": "a5b8c3f2-1e5b-44f9-9d6f-6d2c8b5a9d7e",
+      "personId": "b7d3e8c4-9f2e-4f15-8c2a-7d3f6b2a9f5e",
+      "matrikelnummer": "20250006",
+      "studiengang": "Informatik",
+      "fachsemester": 1,
+      "studienstatus": "immatrikuliert",
+      "jahrgang": "BIN-T25",
+      "email": "sophie.wagner@stud-hochschule.de"
+    },
+    {
+      "id": "f8c9d2a1-7b6e-4c5f-8e3a-9d5f2c7a1b4e",
+      "personId": "c2f1d7e3-8a6b-4f9e-9c5f-1d2a3b4c5e6f",
+      "matrikelnummer": "20250007",
+      "studiengang": "Wirtschaftsinformatik",
+      "fachsemester": 4,
+      "studienstatus": "immatrikuliert",
+      "jahrgang": "WIN-T22",
+      "email": "daniel.fischer@stud-hochschule.de"
+    },
+    {
+      "id": "b3c2d1e4-8f7a-4d6c-9a3e-2c1f5b7a9d8e",
+      "personId": "a1b2c3d4-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      "matrikelnummer": "20250008",
+      "studiengang": "Informatik",
+      "fachsemester": 2,
+      "studienstatus": "immatrikuliert",
+      "jahrgang": "BIN-T23",
+      "email": "laura.becker@stud-hochschule.de"
+    },
+    {
+      "id": "e7a9f6c5-2b4d-4c8f-9d3a-1f5e6b2c7a8d",
+      "personId": "d1e2f3a4-b5c6-47d8-9e0f-1a2b3c4d5e6f",
+      "matrikelnummer": "20250009",
+      "studiengang": "Informatik",
+      "fachsemester": 3,
+      "studienstatus": "immatrikuliert",
+      "jahrgang": "BIN-T22",
+      "email": "tobias.schneider@stud-hochschule.de"
     }
   ],
   "dozenten": [
@@ -314,28 +428,76 @@
   ],
   "stundenplaene": [
     {
-      "id": "df9c41fb-2c5e-4c33-bf73-234d7cbfa144",
-      "studentId": "2f3a9a07-4f35-4c28-8d79-5f9639c59f4c",
+      "id": "a9d7d3a2-6b3f-4a28-93c0-3b9f5c2e7f11",
+      "gruppenId": "8a7c2e3d-01fa-4a6f-b9f2-3b3f5d1e5c4d",
       "veranstaltungsIds": [
         "f72193f9-8c72-4316-b5c5-45b5e41df152",
-        "d892f92d-d2f1-49f6-8b3a-38f273da9f5e",
+        "b50a4d91-5c2e-45f7-8c64-7e9bb8a9f93c",
         "c91e13da-5c42-45fa-8b52-8f918c4bdb3a"
       ]
     },
     {
-      "id": "fe71f3e1-07f4-4713-a599-7d2c23cf84c4",
-      "studentId": "6cf5a2f9-df6f-4f55-b55e-22ef0c7de733",
+      "id": "4c2f7a1b-9d3e-4a8c-b1f2-3e5d6c7b8a90",
+      "gruppenId": "1eaf45b1-2c33-4e76-a2b8-091ce8a7f9cb",
       "veranstaltungsIds": [
         "f72193f9-8c72-4316-b5c5-45b5e41df152",
-        "b50a4d91-5c2e-45f7-8c64-7e9bb8a9f93c"
+        "d892f92d-d2f1-49f6-8b3a-38f273da9f5e"
       ]
     },
     {
-      "id": "4ad8a847-3f7f-4870-812d-1fc0fbb7c8e3",
-      "studentId": "1f91f8aa-d587-4057-8f8a-7c7d235b69a2",
+      "id": "2b6d3e1f-8a4c-49d2-9e1b-7c5a3f2d1e84",
+      "gruppenId": "5e4d2c3b-9a18-4a5a-8c2f-7b6e5d4c3a2b",
       "veranstaltungsIds": [
         "b50a4d91-5c2e-45f7-8c64-7e9bb8a9f93c",
-        "f14c60a5-1fb5-4521-9136-6b2ac78513e7"
+        "d892f92d-d2f1-49f6-8b3a-38f273da9f5e"
+      ]
+    },
+    {
+      "id": "8e2f1c3a-5b4d-4c7e-9a1f-2d3e4b5c6a77",
+      "gruppenId": "0d2c1b3a-4e5f-6a7b-8c9d-0e1f2a3b4c5d",
+      "veranstaltungsIds": [
+        "d892f92d-d2f1-49f6-8b3a-38f273da9f5e",
+        "c91e13da-5c42-45fa-8b52-8f918c4bdb3a"
+      ]
+    }
+  ]
+,
+  "gruppen": [
+    {
+      "id": "8a7c2e3d-01fa-4a6f-b9f2-3b3f5d1e5c4d",
+      "name": "BIN-T23-F1",
+      "beschreibung": "Informatik Jahrgang 2023, Gruppe F1",
+      "studentenIds": [
+        "2f3a9a07-4f35-4c28-8d79-5f9639c59f4c", // Alex Müller
+        "1f91f8aa-d587-4057-8f8a-7c7d235b69a2", // Jonas Weber
+        "d2f71e35-9b7a-4f12-8c7a-0e4a12e1f5a7"  // Lea Hoffmann
+      ]
+    },
+    {
+      "id": "1eaf45b1-2c33-4e76-a2b8-091ce8a7f9cb",
+      "name": "BIN-T25-F2",
+      "beschreibung": "Data Science Jahrgang 2025, Gruppe F2",
+      "studentenIds": [
+        "6cf5a2f9-df6f-4f55-b55e-22ef0c7de733", // Fatima Yilmaz
+        "a5b8c3f2-1e5b-44f9-9d6f-6d2c8b5a9d7e"  // Sophie Wagner
+      ]
+    },
+    {
+      "id": "5e4d2c3b-9a18-4a5a-8c2f-7b6e5d4c3a2b",
+      "name": "BIN-T26-F3",
+      "beschreibung": "Informatik Jahrgang 2026, Gruppe F3",
+      "studentenIds": [
+        "c4a9e9b1-64f2-4d6b-9a12-3d3e3d5a7c2f", // Markus Klein
+        "f8c9d2a1-7b6e-4c5f-8e3a-9d5f2c7a1b4e"  // Daniel Fischer
+      ]
+    },
+    {
+      "id": "0d2c1b3a-4e5f-6a7b-8c9d-0e1f2a3b4c5d",
+      "name": "BIN-T22-F4",
+      "beschreibung": "Wirtschaftsinformatik Jahrgang 2022, Gruppe F4",
+      "studentenIds": [
+        "b3c2d1e4-8f7a-4d6c-9a3e-2c1f5b7a9d8e", // Laura Becker
+        "e7a9f6c5-2b4d-4c8f-9d3a-1f5e6b2c7a8d" // Tobias Schneider
       ]
     }
   ]

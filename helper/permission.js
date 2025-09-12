@@ -2,7 +2,6 @@
 function requireRole(role) {
     return async (req, res, next) => {
         try {
-            console.log(req.user)
             const roles = req.user.resource_access.account.roles; // angenommen aus JWT Middleware
             if (roles.includes(role)) {
                 return next();

@@ -8,11 +8,10 @@ CREATE TABLE IF NOT EXISTS events (
     room_id TEXT NOT NULL,
     course_id TEXT NOT NULL,
     study_group TEXT NOT NULL,
-    lecturer TEXT,       -- Optional
+    lecturer_id TEXT NOT NULL,       -- Optional
     type TEXT CHECK (type IN ('Kurs', 'Dekansprechstunde', 'Klausureinsicht', 'Prüfung', 'E-Learning', 'Sonstiges')) DEFAULT 'Kurs',
     group_id TEXT,       -- Optional
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
-
     );
 
 -- Index für bessere Performance bei häufigen Abfragen
@@ -21,4 +20,4 @@ CREATE INDEX IF NOT EXISTS idx_events_course_id ON events(course_id);
 CREATE INDEX IF NOT EXISTS idx_events_room_id ON events(room_id);
 CREATE INDEX IF NOT EXISTS idx_events_study_group ON events(study_group);
 CREATE INDEX IF NOT EXISTS idx_events_type ON events(type);
-CREATE INDEX IF NOT EXISTS idx_events_lecturer ON events(lecturer);
+CREATE INDEX IF NOT EXISTS idx_events_lecturer ON events(lecturer_id);

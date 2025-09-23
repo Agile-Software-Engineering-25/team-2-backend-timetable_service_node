@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const api = "/api/v1";
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const swaggerUi = require('swagger-ui-express');
@@ -47,11 +48,14 @@ app.use(pinoHttp({
     }
 }));
 
-const api = "/api/v1";
+// Redirect auf /docs für Development
+// app.get("/", (req, res) => res.redirect(`${api}/docs`));
+// Authentication middleware (only in production)
+// if (process.env.NODE_ENV == 'prod') {
+app.use(authJwt());
+// }
 
-app.get("/", (req, res) => res.redirect(`${api}/docs`));
-
-// offene Routen
+// Definition der öffentlichen Endpunkte
 app.use(api + '/docs', swaggerUi.serve, swaggerUi.setup(catchEndpoints(app)));
 app.get(api + "/login", (req, res) => {
     return res.status(200).send(generateTestToken())
@@ -59,10 +63,7 @@ app.get(api + "/login", (req, res) => {
 
 app.get("/health", (req, res) => res.status(200).send("OK"));
 
-// Authentication middleware (only in production)
-// if (process.env.NODE_ENV == 'prod') {
-app.use(authJwt());
-// }
+
 
 //Routers
 const scheduleRouter = require("./routers/v1/schedule");

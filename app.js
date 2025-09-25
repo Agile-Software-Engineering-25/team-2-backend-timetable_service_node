@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const api = "/api/v1";
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const swaggerUi = require('swagger-ui-express');
@@ -14,8 +15,14 @@ const { generateTestToken } = require('./tests/helper/getTestToken');
 
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:5173'],   // React Dev-Server
+    credentials: true,
+    methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
+    allowedHeaders: ['Content-Type','Authorization']
+}));
 app.use(bodyParser.json());
+app.options('*', cors());
 
 app.use((req, res, next) => {
     setContext({ path: req.path, method: req.method, next });
@@ -40,24 +47,26 @@ app.use(pinoHttp({
     }
 }));
 
+// Redirect auf /docs für Development
+// app.get("/", (req, res) => res.redirect(`${api}/docs`));
 // Authentication middleware (only in production)
 // if (process.env.NODE_ENV == 'prod') {
 app.use(authJwt());
 // }
-//Routers
-const scheduleRouter = require("./routers/v1/schedule");
 
-const api = "/api/v1";
-
-app.use(`${api}/schedule`, scheduleRouter);
-
-
+// Definition der öffentlichen Endpunkte
 app.use(api + '/docs', swaggerUi.serve, swaggerUi.setup(catchEndpoints(app)));
 app.get(api + "/login", (req, res) => {
     return res.status(200).send(generateTestToken())
 });
 
+app.get("/health", (req, res) => res.status(200).send("OK"));
 
+
+
+//Routers
+const scheduleRouter = require("./routers/v1/schedule");
+app.use(`${api}/schedule`, scheduleRouter);
 
 async function startServer() {
     await initDB()

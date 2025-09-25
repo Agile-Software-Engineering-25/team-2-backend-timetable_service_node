@@ -15,7 +15,8 @@ function generateTestToken() {
                 "roles": [
                     "manage-account",
                     "manage-account-links",
-                    "view-profile"
+                    "view-profile",
+                    "manage-schedule"
                 ]
             }
         },

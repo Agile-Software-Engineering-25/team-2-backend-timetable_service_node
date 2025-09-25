@@ -18,8 +18,8 @@ const { generateTestToken } = require('./tests/helper/getTestToken');
 app.use(cors({
     origin: ['http://localhost:5173'],   // React Dev-Server
     credentials: true,
-    methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
-    allowedHeaders: ['Content-Type','Authorization']
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(bodyParser.json());
 app.options('*', cors());
@@ -66,7 +66,9 @@ app.get("/health", (req, res) => res.status(200).send("OK"));
 
 //Routers
 const scheduleRouter = require("./routers/v1/schedule");
+const eventRouter = require("./routers/v1/event");
 app.use(`${api}/schedule`, scheduleRouter);
+app.use(`${api}/event`, eventRouter);
 
 async function startServer() {
     await initDB()

@@ -3,6 +3,7 @@ const { app, startServer } = require('../../app.js');
 
 const { generateTestToken } = require('../helper/getTestToken.js');
 const { query } = require('../../helper/getCon.js');
+const { getEntries } = require('../../helper/getEntries.js');
 let server
 beforeAll(async () => {
     server = await startServer()
@@ -46,57 +47,127 @@ afterAll(async () => {
     if (server) server.close()           // stop HTTP server
 });
 
-describe('GET /api/v1/schedule/all', () => {
-    it('should get all scheduled events', async () => {
+describe('GET /api/v1/event/:id', () => {
+    it('should get scheduled event by id', async () => {
 
-
+        const eventId = "6ad7b8c8-0b23-4e1a-8d8f-4a9f1b4f0e24"
         const response = await request(app)
-            .get('/api/v1/schedule/all')
+            .get('/api/v1/event/' + eventId)
             .set('Authorization', `Bearer ${generateTestToken()}`)
             .set('Accept', 'application/json');
 
         expect(response.status).toBe(200);
         expect(response.body).toBeDefined();
-        expect(response.body.length).toBe(5)
-        const singleEvent = response.body[0]
+        const singleEvent = response.body;
         expect(singleEvent).toEqual(
             expect.objectContaining({// prüft, dass Property existiert
+                id: eventId,
                 time: expect.any(String),
-                end_time: expect.any(String),
+                endTime: expect.any(String),
                 title: expect.any(String),
-                room_id: expect.any(String),
-                course_id: expect.any(String),
-                study_group: expect.any(String),
+                roomId: expect.any(String),
+                lecturer: expect.any(String),
+                courseId: expect.any(String),
+                groupId: expect.any(String),
+                studyGroup: expect.any(String),
                 type: expect.any(String),
                 created_at: expect.any(String),
             })
         );
     });
 });
-describe('GET /api/v1/schedule/personal', () => {
-    it('should get all scheduled events of one lecturer', async () => {
-        const sampleId = "15389065-daf0-4a2e-bae5-2e3f024a7921";
+describe('POST /api/v1/event', () => {
+    it('should get all scheduled events', async () => {
 
+        const event = {
+            time: '2025-10-01 08:00',
+            endTime: '2025-10-01 10:00',
+            title: 'Programmierung I',
+            roomId: 'R101',
+            courseId: '6ad7b8c8-0b23-4e1a-8d8f-4a9f1b4f0e24',
+            lecturer: '15389065-daf0-4a2e-bae5-2e3f024a7921',
+            type: 'Kurs',
+            groupId: 'GroupID',
+            studyGroup: 'Inf-Bin1',
+        }
         const response = await request(app)
-            .get('/api/v1/schedule/personal?lecturerId=' + sampleId)
+            .post('/api/v1/event')
+            .send(event)
             .set('Authorization', `Bearer ${generateTestToken()}`)
             .set('Accept', 'application/json');
 
         expect(response.status).toBe(200);
         expect(response.body).toBeDefined();
-        expect(response.body.length).toBeDefined()
-        response.body.forEach(singleEvent => {
-            expect(singleEvent).toEqual(
-                expect.objectContaining({// prüft, dass Property existiert
-                    start_time: expect.any(String),
-                    end_time: expect.any(String),
-                    title: expect.any(String),
-                    room_id: expect.any(String),
-                    course_id: expect.any(String),
-                    lecturer_id: sampleId,
-                })
-            );
-        });
-
+        expect(response.body).toEqual(
+            expect.objectContaining({// prüft, dass Property existiert
+                id: expect.any(String),
+                time: expect.any(String),
+                endTime: expect.any(String),
+                title: expect.any(String),
+                roomId: expect.any(String),
+                lecturer: expect.any(String),
+                groupId: expect.any(String),
+                courseId: expect.any(String),
+                studyGroup: expect.any(String),
+                type: expect.any(String),
+            })
+        );
+        const [eventResp] = await getEntries({ id: response.body.id })
+        expect(eventResp).toEqual(expect.objectContaining(event))
     });
 });
+describe('DELETE /api/v1/event/:id', () => {
+    it('should delete a scheduled event', async () => {
+        const eventId = '6ad7b8c8-0b23-4e1a-8d8f-4a9f1b4f0e24';
+        const response = await request(app)
+            .delete('/api/v1/event/' + eventId)
+            .set('Authorization', `Bearer ${generateTestToken()}`)
+            .set('Accept', 'application/json');
+
+        expect(response.status).toBe(200);
+        const [eventResp] = await getEntries({ id: response.body.id })
+        expect(eventResp).toBe(undefined)
+    });
+});
+describe('PUT /api/v1/event', () => {
+    it('should get update a scheduled event', async () => {
+
+        const event = {
+            id: '6ad7b8c8-0b23-4e1a-8d8f-4a9f1b4f0e24',
+            time: '2025-10-01 08:00',
+            endTime: '2025-10-01 10:00',
+            title: 'Programmierung II',
+            roomId: 'R101',
+            courseId: '6ad7b8c8-0b23-4e1a-8d8f-4a9f1b4f0e24',
+            lecturer: '15389065-daf0-4a2e-bae5-2e3f024a7921',
+            type: 'Kurs',
+            groupId: 'GroupID',
+            studyGroup: 'Inf-Bin1',
+        }
+        const response = await request(app)
+            .put('/api/v1/event/' + event.id)
+            .send(event)
+            .set('Authorization', `Bearer ${generateTestToken()}`)
+            .set('Accept', 'application/json');
+
+        expect(response.status).toBe(200);
+        expect(response.body).toBeDefined();
+        expect(response.body).toEqual(
+            expect.objectContaining({// prüft, dass Property existiert
+                id: expect.any(String),
+                time: expect.any(String),
+                endTime: expect.any(String),
+                title: expect.any(String),
+                roomId: expect.any(String),
+                lecturer: expect.any(String),
+                groupId: expect.any(String),
+                courseId: expect.any(String),
+                studyGroup: expect.any(String),
+                type: expect.any(String),
+            })
+        );
+        const [eventResp] = await getEntries({ id: response.body.id })
+        expect(eventResp).toEqual(expect.objectContaining(event))
+    });
+});
+

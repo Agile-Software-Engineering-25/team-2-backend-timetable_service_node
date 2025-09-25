@@ -10,6 +10,12 @@ async function getEntries(filter, user = null) {
     // }
     // Basisabfrage
     let getEntries = "SELECT * FROM events"
+
+    if (filter.id) {
+        filters.push("id = ?");
+        params.push(filter.id)
+    }
+
     if (filter.courseId) {
         filters.push("course_id = ?");
         params.push(filter.courseId)
@@ -48,13 +54,17 @@ async function getEntries(filter, user = null) {
         logger.debug(entries)
         entries.forEach(entry => {
             result.push({
+                id: entry.id,
                 title: entry.title,
-                room_id: entry.room_id,
-                lecturer_id: entry.lecturer_id,
-                group_id: entry.group_id,
-                start_time: entry.time,
-                end_time: entry.end_time,
-                course_id: entry.course_id
+                roomId: entry.room_id,
+                lecturer: entry.lecturer_id,
+                groupId: entry.group_id,
+                time: entry.time,
+                endTime: entry.end_time,
+                courseId: entry.course_id,
+                type: entry.type,
+                created_at: entry.created_at || "",
+                studyGroup: entry.study_group
             })
         });
         return result;

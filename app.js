@@ -12,7 +12,6 @@ const { setContext } = require('./helper/context');
 const { initDB } = require('./helper/getCon');
 const { generateTestToken } = require('./tests/helper/getTestToken');
 
-const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());

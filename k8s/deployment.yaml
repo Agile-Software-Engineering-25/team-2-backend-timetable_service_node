@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timetable-service
+  labels:
+    app: timetable-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: timetable-service
+  template:
+    metadata:
+      labels:
+        app: timetable-service
+    spec:
+      containers:
+        - name: timetable-service
+          image: ghcr.io/agile-software-engineering-25/team-2-backend-timetable_service_node:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "1Gi"
+              cpu: "300m"
+          readinessProbe:
+            httpGet:
+              path: /timetable/health # you might need to change this to a health endpoint of your application
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /timetable/health # you might need to change this to a health endpoint of your application
+              port: 8080
+            initialDelaySeconds: 120
+            periodSeconds: 20
+          env: # add environment variables here if needed
+            - name: NODE_ENV
+              value: "prod"
+            - name: LOG_LEVEL
+              value: "info"
+            - name: PROD_PORT
+              value: "3000"

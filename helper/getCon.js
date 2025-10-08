@@ -2,6 +2,7 @@
 const sqlite3 = require("sqlite3")
 const pkg = require("pg")
 const logger = require("./logger")
+const fs = require('fs')
 
 const isDev = process.env.NODE_ENV !== "prod"
 console.log(process.env.NODE_ENV)
@@ -9,9 +10,18 @@ let client
 async function initDB() {
     if (isDev) {
         // SQLite
+        let new_db = false;
+        if (!fs.existsSync("./dev.db")) {
+            new_db = true;
+        }
+
         client = new sqlite3.Database("./dev.db")
         // Foreign keys aktivieren (wichtig für Kompatibilität mit Postgres)
         client.exec("PRAGMA foreign_keys = ON;")
+        if (new_db) {
+            query(fs.readFileSync("./sql/schema.sql", "utf-8"))
+            logger.info("New SLQLite DB created")
+        }
     } else {
         // Postgres
         const { Client } = pkg
@@ -42,11 +52,15 @@ function query(sql, params = []) {
             })
         } else {
             // Postgres erwartet $1, $2,... Platzhalter
-            client.query(sql, params)
+            client.query(normalizeQuery(sql), params)
                 .then(res => resolve(res.rows))
                 .catch(reject)
         }
     })
+}
+function normalizeQuery(query) {
+    let i = 0;
+    return query.replace(/\?/g, () => `$${++i}`);
 }
 
 module.exports = { initDB, query }

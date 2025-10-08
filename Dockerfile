@@ -19,6 +19,9 @@ RUN apk add --no-cache dumb-init
 COPY --chown=nodejs:nodejs --from=deps /app/node_modules ./node_modules
 COPY --chown=nodejs:nodejs . .
 
+# Ensure log directory exists and is writable by app user
+RUN mkdir -p /app/logs && chown -R nodejs:nodejs /app
+
 USER nodejs
 
 ENV NODE_ENV=production

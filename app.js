@@ -11,7 +11,6 @@ const pinoHttp = require('pino-http');
 const logger = require('./helper/logger');
 const { setContext } = require('./helper/context');
 const { initDB } = require('./helper/getCon');
-// const { generateTestToken } = require('./tests/helper/getTestToken');
 
 const PORT = process.env.PORT || 3000;
 
@@ -57,9 +56,6 @@ app.use(authJwt());
 
 // Definition der öffentlichen Endpunkte
 app.use(api + '/docs', swaggerUi.serve, swaggerUi.setup(catchEndpoints(app)));
-//app.get(api + "/login", (req, res) => {
-//return res.status(200).send(generateTestToken())
-//});
 
 app.get("/health", (req, res) => res.status(200).send("OK"));
 

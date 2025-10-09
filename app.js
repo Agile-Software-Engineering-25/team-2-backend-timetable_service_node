@@ -57,7 +57,7 @@ app.use(authJwt());
 // Definition der öffentlichen Endpunkte
 app.use(api + '/docs', swaggerUi.serve, swaggerUi.setup(catchEndpoints(app)));
 
-app.get("/health", (req, res) => res.status(200).send("OK"));
+app.get("/timetable/health", (req, res) => res.status(200).send("OK"));
 
 
 

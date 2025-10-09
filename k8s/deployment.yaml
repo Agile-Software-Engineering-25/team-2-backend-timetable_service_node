@@ -19,7 +19,7 @@ spec:
           image: ghcr.io/agile-software-engineering-25/team-2-backend-timetable_service_node:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 3000
           resources:
             requests:
               memory: "256Mi"
@@ -30,13 +30,13 @@ spec:
           readinessProbe:
             httpGet:
               path: /timetable/health # you might need to change this to a health endpoint of your application
-              port: 8080
+              port: 3000
             initialDelaySeconds: 10
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /timetable/health # you might need to change this to a health endpoint of your application
-              port: 8080
+              port: 3000
             initialDelaySeconds: 120
             periodSeconds: 20
           env: # add environment variables here if needed

@@ -179,7 +179,7 @@
           "Schedule"
         ],
         "summary": "Returns scheduled events (Date as JSON-Key)",
-        "description": "Retruns personal schedule",
+        "description": "Returns personal schedule",
         "parameters": [
           {
             "name": "courseId",
@@ -335,6 +335,87 @@
         "summary": "Auto-generiert: GET /api/v1/schedule/types",
         "tags": [
           "Schedule"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Erfolg"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/schedule/all": {
+      "get": {
+        "summary": "Auto-generiert: GET /api/v1/schedule/all",
+        "tags": [
+          "Schedule"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Erfolg"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "*": {
+      "options": {
+        "summary": "Auto-generiert: OPTIONS *",
+        "tags": [
+          "General"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Erfolg"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Auto-generiert: GET /",
+        "tags": [
+          "General"
         ],
         "parameters": [],
         "responses": {

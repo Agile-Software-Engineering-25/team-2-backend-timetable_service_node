@@ -23,8 +23,9 @@ function authJwt() {
     // return eine kombinierte Middleware für Express
     const openPaths = [
       { url: /\/api\/v1\/login(.*)/, methods: ["GET", "OPTIONS"] },
+      { url: /^\/health$/, methods: ["GET", "OPTIONS"] },
 
-      process.env.NODE_ENV != 'prod' ? { url: /\/api\/v4\/docs(.*)/, methods: ["GET", "OPTIONS"] } : {},
+      process.env.NODE_ENV != 'prod' ? { url: /\/api\/v1\/docs(.*)/, methods: ["GET", "OPTIONS"] } : {},
 
     ]
 

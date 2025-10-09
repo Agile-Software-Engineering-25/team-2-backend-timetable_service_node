@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const api = "/api/v1";
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const swaggerUi = require('swagger-ui-express');
@@ -12,13 +13,17 @@ const { setContext } = require('./helper/context');
 const { initDB } = require('./helper/getCon');
 const { generateTestToken } = require('./tests/helper/getTestToken');
 
-const app = express();
 const PORT = process.env.PORT || 3000;
-const api = "/api/v1";
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:5173'],   // React Dev-Server
+    credentials: true,
+    methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
+    allowedHeaders: ['Content-Type','Authorization']
+}));
 app.use(bodyParser.json());
+app.options('*', cors());
 
 app.use((req, res, next) => {
     setContext({ path: req.path, method: req.method, next });
@@ -43,37 +48,39 @@ app.use(pinoHttp({
     }
 }));
 
+// Redirect auf /docs für Development
+// app.get("/", (req, res) => res.redirect(`${api}/docs`));
 // Authentication middleware (only in production)
-if (process.env.NODE_ENV == 'prod') {
-    app.use(authJwt());
-}
-//Routers
-const scheduleRouter = require("./routers/v1/schedule");
+// if (process.env.NODE_ENV == 'prod') {
+app.use(authJwt());
+// }
 
-const api = "/api/v1";
-
-app.use(`${api}/schedule`, scheduleRouter);
-
-
+// Definition der öffentlichen Endpunkte
 app.use(api + '/docs', swaggerUi.serve, swaggerUi.setup(catchEndpoints(app)));
 app.get(api + "/login", (req, res) => {
     return res.status(200).send(generateTestToken())
 });
 
-if (process.env.NODE_ENV != 'test') {
-    app.listen(
-        process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT,
-        async () => {
-            await initDB()
+app.get("/health", (req, res) => res.status(200).send("OK"));
 
 
-            console.log("Start Up")
 
-            console.log(
-                "Server is running now on the URL http://localhost:" +
-                (process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT)
-            );
-        }
-    );
+//Routers
+const scheduleRouter = require("./routers/v1/schedule");
+app.use(`${api}/schedule`, scheduleRouter);
+
+async function startServer() {
+    await initDB()
+    const port = process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT
+    const server = app.listen(port, () => {
+        console.log(`Server running on http://localhost:${port}`)
+    })
+    return server
 }
-module.exports = app
+
+
+if (require.main === module) {
+    startServer()
+}
+
+module.exports = { app, startServer }

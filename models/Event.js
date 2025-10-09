@@ -11,6 +11,7 @@ const EventType = {
   DEKANSPRECHSTUNDE: 'Dekansprechstunde',
   KLAUSUREINSICHT: 'Klausureinsicht',
   PRUEFUNG: 'Prüfung',
+  ELEARNING: 'E-Learning',
   SONSTIGES: 'Sonstiges'
 };
 
@@ -148,50 +149,6 @@ class Event {
    */
   static fromJSON(obj) {
     return new Event(obj);
-  }
-
-  /**
-   * Filtert Events nach verschiedenen Kriterien
-   * @param {Event[]} events - Array von Events
-   * @param {Object} filters - Filter-Objekt
-   * @returns {Event[]}
-   */
-  static filter(events, filters) {
-    return events.filter(event => {
-      // Filter nach Typ
-      if (filters.type && event.type !== filters.type) {
-        return false;
-      }
-
-      // Filter nach Kurs-ID
-      if (filters.courseId && event.courseId !== filters.courseId) {
-        return false;
-      }
-
-      // Filter nach Raum-ID
-      if (filters.roomId && event.roomId !== filters.roomId) {
-        return false;
-      }
-
-      // Filter nach Studiengruppe
-      if (filters.studyGroup && event.studyGroup !== filters.studyGroup) {
-        return false;
-      }
-
-      // Filter nach Dozent
-      if (filters.lecturer && event.lecturer !== filters.lecturer) {
-        return false;
-      }
-
-      // Filter nach Zeitraum
-      if (filters.startTime && filters.endTime) {
-        if (!event.isInTimeRange(filters.startTime, filters.endTime)) {
-          return false;
-        }
-      }
-
-      return true;
-    });
   }
 }
 

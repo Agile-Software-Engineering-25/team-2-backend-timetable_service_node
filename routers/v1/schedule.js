@@ -3,6 +3,8 @@ const { query } = require('../../helper/getCon');
 const { requireRole } = require('../../helper/permission');
 const { Event, EventType, EventUtils } = require('../../models/Event');
 const { validateScheduleInput } = require('../../helper/validators/scheduleValidator');
+const { getEntries } = require('../../helper/getEntries');
+const logger = require('../../helper/logger');
 const router = express.Router();
 
 // Beispiel-Events mit dem neuen Datenmodell
@@ -30,52 +32,44 @@ const exampleEvents = [
     })
 ];
 
-router.get("", requireRole("view-profile"), (req, res) => {
-    const { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
-    console.log(req.user);
-
-    // Filter mit dem neuen Event.filter System
-    const filters = {};
-    if (courseId) filters.courseId = courseId;
-    if (lecturerId) filters.lecturer = lecturerId;
-    if (roomId) filters.roomId = roomId;
-    if (studyGroup) filters.studyGroup = studyGroup;
-    if (type) filters.type = type;
-    if (startTime && endTime) {
-        filters.startTime = startTime;
-        filters.endTime = endTime;
+router.get("", requireRole("view-profile"), async (req, res) => {
+    const filter = { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
+    const userMail = req.user.email;
+    /*
+        User ID und die Gruppe mit Mail abfragen 
+    */
+    /*filter.studyGroup == */ //Hier setzen sobald implementiert
+    try {
+        const result = await getEntries(filter, userMail);
+        if (result.length === 0) {
+            return res.status(404).send("No Entries found");
+        }
+        return res.status(200).send(result)
     }
-
-    let result = Event.filter(exampleEvents, filters);
-
-    if (result.length === 0) {
-        return res.status(404).json({ error: "No entries found" });
+    catch (error) {
+        return res.status(500).send("Inernal Server Error");
     }
-
-    // Gruppierung nach Datum
-    const groupedByDate = EventUtils.groupByDate(result);
-
-    res.json(groupedByDate);
 });
-router.get("/personal", requireRole("view-prfffofile"), (req, res) => {
-    const { courseId, lecturerId, roomId } = req.query;
-    console.log(req.user)
-    let result = [examplePersonalEntry];
-    if (courseId && courseId !== examplePersonalEntry.course_id) result = [];
-    if (lecturerId && lecturerId !== examplePersonalEntry.lecturer_id) result = [];
-    if (roomId && roomId !== examplePersonalEntry.room_id) result = [];
+router.get("/personal", requireRole("view-profile"), async (req, res) => {
+    const filter = { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
+    const userMail = req.user.email;
 
-    if (result.length === 0) {
-        return res.status(404).json({ error: "No entries found" });
+    /*
+        User ID und die Gruppe mit Mail abfragen 
+    */
+
+    try {
+        const result = await getEntries(filter, userMail);
+        if (result.length === 0) {
+            return res.status(404).send("No Entries found")
+        }
+        return res.status(200).send(result)
     }
-
-    // Sortierung nach Zeit
-    result = EventUtils.sortByTime(result);
-
-    // Gruppierung nach Datum
-    const groupedByDate = EventUtils.groupByDate(result);
-
-    res.json(groupedByDate);
+    catch (error) {
+        console.log(error)
+        logger.error(error, `Could not fetch personal events ${JSON.stringify(filter)}`)
+        return res.status(500).send("Inernal Server Error")
+    }
 });
 
 router.post("", requireRole("manage-schedule"), async (req, res) => {
@@ -106,6 +100,20 @@ router.get("/conflicts", requireRole("view-profile"), (req, res) => {
 // Route für verfügbare Event-Typen
 router.get("/types", requireRole("view-profile"), (req, res) => {
     res.json(Object.values(EventType));
+});
+
+router.get("/all", requireRole("view-profile"), async (req, res) => {
+    try {
+        const result = await query("SELECT * FROM events")
+        if (result.length == 0) {
+            return res.status(404).send("No entries found")
+        }
+        return res.status(200).json(result);
+    } catch (error) {
+        console.error(error)
+        logger.error(error, "Error while fetching events from DB")
+        return res.status(500).send("Internal Server Error")
+    }
 });
 
 module.exports = router;

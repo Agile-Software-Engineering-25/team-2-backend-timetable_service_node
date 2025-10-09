@@ -66,7 +66,7 @@ const scheduleRouter = require("./routers/v1/schedule");
 app.use(`${api}/schedule`, scheduleRouter);
 
 async function startServer() {
-    await initDB()
+    //await initDB()
     const port = process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT
     const server = app.listen(port, () => {
         console.log(`Server running on http://localhost:${port}`)

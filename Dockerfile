@@ -29,7 +29,6 @@ USER nodejs
 
 ENV NODE_ENV=production
 ENV PORT=3000
-ENV APP_DIR=/apps
 ENV DB_HOST=postgres.db
 ENV DB_PORT=5432
 ENV DB_SCHEMA=ase-2_schema

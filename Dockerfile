@@ -26,6 +26,7 @@ USER nodejs
 
 ENV NODE_ENV=production
 ENV PORT=3000
+ENV APP_DIR=/apps
 EXPOSE 3000
 
 ENTRYPOINT ["dumb-init", "--"]

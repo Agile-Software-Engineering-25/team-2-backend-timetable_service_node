@@ -29,13 +29,13 @@ spec:
               cpu: "300m"
           readinessProbe:
             httpGet:
-              path: /timetable/health # you might need to change this to a health endpoint of your application
+              path: /health # you might need to change this to a health endpoint of your application
               port: 8080
             initialDelaySeconds: 10
             periodSeconds: 5
           livenessProbe:
             httpGet:
-              path: /timetable/health # you might need to change this to a health endpoint of your application
+              path: /health # you might need to change this to a health endpoint of your application
               port: 8080
             initialDelaySeconds: 120
             periodSeconds: 20

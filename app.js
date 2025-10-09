@@ -47,6 +47,9 @@ app.use(pinoHttp({
     }
 }));
 
+
+app.get("/timetable/health", (req, res) => res.status(200).send("OK"));
+
 // Redirect auf /docs für Development
 // app.get("/", (req, res) => res.redirect(`${api}/docs`));
 // Authentication middleware (only in production)
@@ -71,7 +74,7 @@ app.use(`${api}/schedule`, scheduleRouter);
 app.use(`${api}/event`, eventRouter);
 
 async function startServer() {
-    await initDB()
+    //await initDB()
     const port = process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT
     const server = app.listen(port, () => {
         console.log(`Server running on http://localhost:${port}`)

@@ -2,6 +2,7 @@ const express = require('express');
 const { query } = require('../../helper/getCon');
 const { requireRole } = require('../../helper/permission');
 const { Event, EventType, EventUtils } = require('../../models/Event');
+const { validateScheduleInput } = require('../../helper/validators/scheduleValidator');
 const router = express.Router();
 
 // Beispiel-Events mit dem neuen Datenmodell
@@ -77,16 +78,24 @@ router.get("/personal", requireRole("view-prfffofile"), (req, res) => {
     res.json(groupedByDate);
 });
 
-// Neue Route für Event-Management
-router.post("", requireRole("manage-schedule"), (req, res) => {
-    try {
-        const event = new Event(req.body);
-        // Hier würde normalerweise die Datenbank-Speicherung erfolgen
-        res.status(201).json(event.toJSON());
-    } catch (error) {
-        res.status(400).json({ error: error.message });
+router.post("", requireRole("manage-schedule"), async (req, res) => {
+  try {
+    // NEU: Validierung gemäß User-Story
+    const check = await validateScheduleInput(req.body);
+    if (!check.valid) {
+      // Einheitliche Fehlermeldung
+      return res.status(400).json(check.error);
     }
+
+    // Event-Objekt wie bisher erzeugen (keine Änderung)
+    const event = new Event(req.body);
+    // (Hier würde man in DB/API speichern)
+    return res.status(201).json(event.toJSON());
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
 });
+
 
 // Route für Konfliktprüfung
 router.get("/conflicts", requireRole("view-profile"), (req, res) => {

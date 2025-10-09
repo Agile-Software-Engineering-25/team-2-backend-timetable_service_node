@@ -12,14 +12,13 @@ const logger = require('./helper/logger');
 const { setContext } = require('./helper/context');
 const { initDB } = require('./helper/getCon');
 
-const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors({
     origin: ['http://localhost:5173'],   // React Dev-Server
     credentials: true,
-    methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
-    allowedHeaders: ['Content-Type','Authorization']
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(bodyParser.json());
 app.options('*', cors());
@@ -66,7 +65,9 @@ app.use(api + '/docs', swaggerUi.serve, swaggerUi.setup(catchEndpoints(app)));
 
 //Routers
 const scheduleRouter = require("./routers/v1/schedule");
+const eventRouter = require("./routers/v1/event");
 app.use(`${api}/schedule`, scheduleRouter);
+app.use(`${api}/event`, eventRouter);
 
 async function startServer() {
     //await initDB()

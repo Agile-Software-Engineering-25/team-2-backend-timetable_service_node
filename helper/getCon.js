@@ -1,6 +1,7 @@
 //Todoimport sqlite3 from "sqlite3"
 const sqlite3 = require("sqlite3")
 const pkg = require("pg")
+const logger = require("./logger")
 
 const isDev = process.env.NODE_ENV !== "prod"
 console.log(process.env.NODE_ENV)
@@ -36,7 +37,7 @@ function query(sql, params = []) {
         if (isDev) {
             // SQLite erwartet ?-Platzhalter
             client.all(sql, params, (err, rows) => {
-                if (err) reject(err)
+                if (err) { logger.error(err, "DB Error"); reject(err) }
                 else resolve(rows)
             })
         } else {

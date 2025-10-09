@@ -71,16 +71,7 @@ router.get("/personal", requireRole("view-profile"), async (req, res) => {
     }
 });
 
-// Neue Route für Event-Management
-router.post("", requireRole("manage-schedule"), (req, res) => {
-    try {
-        const event = new Event(req.body);
-        // Hier würde normalerweise die Datenbank-Speicherung erfolgen
-        res.status(201).json(event.toJSON());
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
+
 
 // Route für Konfliktprüfung
 router.get("/conflicts", requireRole("view-profile"), (req, res) => {
@@ -95,7 +86,7 @@ router.get("/types", requireRole("view-profile"), (req, res) => {
 
 router.get("/all", requireRole("view-profile"), async (req, res) => {
     try {
-        const result = await query("SELECT * FROM events")
+        const result = await getEntries({})
         if (result.length == 0) {
             return res.status(404).send("No entries found")
         }

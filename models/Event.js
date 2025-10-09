@@ -20,6 +20,7 @@ const EventType = {
  */
 class Event {
   /**
+   * @param {String} data.id  - Event-id
    * @param {Object} data - Event-Daten
    * @param {string|Date} data.time - Uhrzeit als String oder Date-Objekt
    * @param {string} data.title - Veranstaltungsname
@@ -49,8 +50,8 @@ class Event {
     this.groupId = data.groupId || null;
 
     // Automatische Felder
-    this.id = data.id || this.generateId();
-    this.createdAt = data.createdAt || new Date().toISOString();
+    this.id = data.id || "";
+    this.createdAt = data.createdAt;
   }
 
   /**
@@ -270,7 +271,7 @@ const EventUtils = {
 
           // Dozentenkonflikt
           if (event1.lecturer && event2.lecturer &&
-              event1.lecturer === event2.lecturer) {
+            event1.lecturer === event2.lecturer) {
             conflicts.timeLecturer.push([event1, event2]);
           }
         }

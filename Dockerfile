@@ -8,6 +8,9 @@ RUN npm ci
 FROM node:20-alpine AS runtime
 WORKDIR /app
 
+# Ensure log directory exists and is writable by app user
+RUN mkdir -p /app/logs && chown -R nodejs:nodejs /app
+
 # Non-root user
 RUN addgroup -g 1001 -S nodejs \
  && adduser -S nodejs -u 1001
@@ -18,9 +21,6 @@ RUN apk add --no-cache dumb-init
 # Copy deps and app code
 COPY --chown=nodejs:nodejs --from=deps /app/node_modules ./node_modules
 COPY --chown=nodejs:nodejs . .
-
-# Ensure log directory exists and is writable by app user
-RUN mkdir -p /app/logs && chown -R nodejs:nodejs /app
 
 USER nodejs
 

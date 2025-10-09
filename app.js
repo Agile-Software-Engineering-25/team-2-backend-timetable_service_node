@@ -11,7 +11,6 @@ const pinoHttp = require('pino-http');
 const logger = require('./helper/logger');
 const { setContext } = require('./helper/context');
 const { initDB } = require('./helper/getCon');
-const { generateTestToken } = require('./tests/helper/getTestToken');
 
 
 // Middleware
@@ -47,6 +46,9 @@ app.use(pinoHttp({
     }
 }));
 
+
+app.get("/timetable/health", (req, res) => res.status(200).send("OK"));
+
 // Redirect auf /docs für Development
 // app.get("/", (req, res) => res.redirect(`${api}/docs`));
 // Authentication middleware (only in production)
@@ -56,11 +58,8 @@ app.use(authJwt());
 
 // Definition der öffentlichen Endpunkte
 app.use(api + '/docs', swaggerUi.serve, swaggerUi.setup(catchEndpoints(app)));
-app.get(api + "/login", (req, res) => {
-    return res.status(200).send(generateTestToken())
-});
 
-app.get("/health", (req, res) => res.status(200).send("OK"));
+// app.get("/timetable/health", (req, res) => res.status(200).send("OK"));
 
 
 
@@ -71,7 +70,7 @@ app.use(`${api}/schedule`, scheduleRouter);
 app.use(`${api}/event`, eventRouter);
 
 async function startServer() {
-    await initDB()
+    //await initDB()
     const port = process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT
     const server = app.listen(port, () => {
         console.log(`Server running on http://localhost:${port}`)

@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: timetable-service
+
+resources:
+  - deployment.yaml
+  - service.yaml
+
+commonLabels:
+  environment: ase-2
+  managed-by: kustomize
+  app: timetable-service
+
+namePrefix: "ase-"
+
+namespace: ase-2
+
+replicas:
+  - name: timetable-service
+    count: 1

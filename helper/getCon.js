@@ -30,11 +30,11 @@ async function initDB() {
             port: process.env.DB_PORT || 5432,
             user: process.env.DB_USER || "postgres",
             password: process.env.DB_PASSWORD || "postgres.db",
-            database: process.env.DB_NAME || "ase-2_schema",
+            database: process.env.DB_NAME || "appdb",
         })
 
         await client.connect()
-        await client.query(`SET search_path TO ${process.env.DB_SCHEMA || "public"};`);
+        await client.query(`SET search_path TO ${process.env.DB_SCHEMA || "ase-2_schema"};`);
         console.log("Postgres Datenbank verbunden")
     }
 }

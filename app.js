@@ -53,7 +53,7 @@ app.get("/timetable/health", (req, res) => res.status(200).send("OK"));
 // app.get("/", (req, res) => res.redirect(`${api}/docs`));
 // Authentication middleware (only in production)
 // if (process.env.NODE_ENV == 'prod') {
-app.use(authJwt());
+// app.use(authJwt());
 // }
 
 // Definition der öffentlichen Endpunkte

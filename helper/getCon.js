@@ -44,7 +44,7 @@ async function initDB() {
         try {
             await client.query(`SET search_path TO ${process.env.DB_SCHEMA || "ase-2_schema"};`);
         } catch (error) {
-            logger.error("Could not select db schema")
+            logger.error(error, "Could not select db schema")
         }
     }
 }

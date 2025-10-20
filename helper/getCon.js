@@ -33,9 +33,19 @@ async function initDB() {
             database: process.env.DB_NAME || "appdb",
         })
 
-        await client.connect()
-        await client.query(`SET search_path TO ${process.env.DB_SCHEMA || "ase-2_schema"};`);
-        console.log("Postgres Datenbank verbunden")
+        await client.connect();
+        logger.info("Conneted to db")
+        const schema = await client.query(`SELECT nspname AS schema_name,
+            pg_catalog.pg_get_userbyid(nspowner) AS owner
+            FROM pg_namespace
+            ORDER BY schema_name;
+            `)
+        logger.info(schema)
+        try {
+            await client.query(`SET search_path TO ${process.env.DB_SCHEMA || "ase-2_schema"};`);
+        } catch (error) {
+            logger.error("Could not select db schema")
+        }
     }
 }
 

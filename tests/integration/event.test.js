@@ -96,7 +96,7 @@ describe('POST /api/v1/event', () => {
             .set('Authorization', `Bearer ${generateTestToken()}`)
             .set('Accept', 'application/json');
 
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(201);
         expect(response.body).toBeDefined();
         expect(response.body).toEqual(
             expect.objectContaining({// prüft, dass Property existiert
@@ -124,7 +124,7 @@ describe('DELETE /api/v1/event/:id', () => {
             .set('Authorization', `Bearer ${generateTestToken()}`)
             .set('Accept', 'application/json');
 
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(204);
         const [eventResp] = await getEntries({ id: response.body.id })
         expect(eventResp).toBe(undefined)
     });

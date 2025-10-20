@@ -37,7 +37,7 @@ router.post("/", requireRole("manage-schedule"), async (req, res) => {
         const insertQuery = "INSERT INTO events (id, time, end_time, title, room_id, course_id, study_group, lecturer_id, type, group_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         await query(insertQuery, [id, event.time, event.endTime, event.title, event.roomId, event.courseId, event.studyGroup, event.lecturer, event.type, event.groupId]);
         event.id = id;
-        res.status(200).json(event.toJSON());
+        res.status(201).json(event.toJSON());
     } catch (error) {
         logger.error(error, `An error accured while creating event`)
 
@@ -66,7 +66,7 @@ router.delete("/:id", requireRole("manage-schedule"), async (req, res) => {
     try {
         const insertQuery = "DELETE FROM events WHERE id = ?";
         await query(insertQuery, [eventId]);
-        res.status(200).json({ resp: "succes" });
+        res.status(204);
     } catch (error) {
         logger.error(error, `An error accured while deleting event: ${eventId}`)
         res.status(500).send("Internal Server Error");

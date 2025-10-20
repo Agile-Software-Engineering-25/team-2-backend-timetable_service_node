@@ -2,13 +2,23 @@ require('dotenv/config');
 const { expressjwt: jwt } = require("express-jwt");
 const logger = require('./logger');
 const fs = require('fs')
+const jwksRsa = require("jwks-rsa");
+
+// JWKS-Client konfigurieren
+const jwksUri = "https://keycloak.sau-portal.de/realms/sau/protocol/openid-connect/certs";
+
 function authJwt() {
   try {
-    const secret = fs.readFileSync('./keys/public.pem');
     const jwtMiddleware = jwt({
-      secret,
+      secret: process.env.NODE_ENV !== 'prod' ? fs.readFileSync('./keys/public.pem') : jwksRsa.expressJwtSecret({
+        cache: true,            // Zwischenspeichern der Keys für bessere Performance
+        rateLimit: true,        // Verhindert zu viele Anfragen an Keycloak
+        jwksRequestsPerMinute: 10,
+        jwksUri,
+      }),
       algorithms: ["RS256"],
       requestProperty: "user",
+      issuer: "https://keycloak.sau-portal.de/realms/sau",
       isRevoked,
     });
 
@@ -23,7 +33,7 @@ function authJwt() {
     // return eine kombinierte Middleware für Express
     const openPaths = [
       { url: /\/api\/v1\/login(.*)/, methods: ["GET", "OPTIONS"] },
-      { url: /^\timetable\/health$/, methods: ["GET", "OPTIONS"] },
+      { url: /\/timetable\/health$/, methods: ["GET", "OPTIONS"] },
 
       process.env.NODE_ENV != 'prod' ? { url: /\/api\/v1\/docs(.*)/, methods: ["GET", "OPTIONS"] } : {},
 

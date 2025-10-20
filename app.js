@@ -58,8 +58,15 @@ app.use(authJwt());
 
 // Definition der öffentlichen Endpunkte
 app.use(api + '/docs', swaggerUi.serve, swaggerUi.setup(catchEndpoints(app)));
+if (process.env.NODE_ENV != 'prod') {
+    const { generateTestToken } = require('./tests/helper/getTestToken');
 
-// app.get("/timetable/health", (req, res) => res.status(200).send("OK"));
+    app.get(api + "/login", (req, res) => {
+        return res.status(200).send(generateTestToken())
+    });
+}
+
+app.get("/timetable/health", (req, res) => res.status(200).send("OK"));
 
 
 
@@ -70,7 +77,7 @@ app.use(`${api}/schedule`, scheduleRouter);
 app.use(`${api}/event`, eventRouter);
 
 async function startServer() {
-    //await initDB()
+    await initDB()
     const port = process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT
     const server = app.listen(port, () => {
         console.log(`Server running on http://localhost:${port}`)

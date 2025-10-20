@@ -1,17 +1,18 @@
 -- Database Schema für Events Tabelle
 -- Events Tabelle erstellen
 CREATE TABLE IF NOT EXISTS events (
-    id TEXT PRIMARY KEY,
+    id TEXT PRIMARY KEY UNIQUE,
     time TEXT NOT NULL,
     end_time TEXT,
     title TEXT NOT NULL,
     room_id TEXT NOT NULL,
     course_id TEXT NOT NULL,
     study_group TEXT NOT NULL,
-    lecturer_id TEXT NOT NULL,       -- Optional
+    lecturer_id TEXT NOT NULL,     
     type TEXT CHECK (type IN ('Kurs', 'Dekansprechstunde', 'Klausureinsicht', 'Prüfung', 'E-Learning', 'Sonstiges')) DEFAULT 'Kurs',
     group_id TEXT,       -- Optional
-    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    comment TEXT DEFAULT NULL
     );
 
 -- Index für bessere Performance bei häufigen Abfragen

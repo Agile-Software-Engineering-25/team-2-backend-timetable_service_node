@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const api = "/api/v1";
+const api = "/api/timetable/v1";
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const swaggerUi = require('swagger-ui-express');

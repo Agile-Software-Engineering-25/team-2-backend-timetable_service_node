@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS events (
     room_id TEXT NOT NULL,
     course_id TEXT NOT NULL,
     study_group TEXT NOT NULL,
+    module TEXT NOT NULL,
     lecturer_id TEXT NOT NULL,     
     type TEXT CHECK (type IN ('Kurs', 'Dekansprechstunde', 'Klausureinsicht', 'Prüfung', 'E-Learning', 'Sonstiges')) DEFAULT 'Kurs',
     group_id TEXT,       -- Optional

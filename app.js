@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const api = "/api/v1";
+const api = "/api/timetable/v1";
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const swaggerUi = require('swagger-ui-express');
@@ -53,7 +53,7 @@ app.get("/timetable/health", (req, res) => res.status(200).send("OK"));
 // app.get("/", (req, res) => res.redirect(`${api}/docs`));
 // Authentication middleware (only in production)
 // if (process.env.NODE_ENV == 'prod') {
-app.use(authJwt());
+// app.use(authJwt());
 // }
 
 // Definition der öffentlichen Endpunkte

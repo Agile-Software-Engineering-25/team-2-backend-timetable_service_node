@@ -27,10 +27,11 @@ RUN install -d -o nodejs -g nodejs /app/logs
 
 USER nodejs
 
-ENV NODE_ENV=production
+ENV NODE_ENV=prod
 ENV PORT=3000
 ENV DB_HOST=postgres.db
 ENV DB_PORT=5432
+ENV DB_NAME=appdb
 ENV DB_SCHEMA=ase-2_schema
 EXPOSE 3000
 

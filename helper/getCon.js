@@ -29,13 +29,23 @@ async function initDB() {
             host: process.env.DB_HOST || "localhost",
             port: process.env.DB_PORT || 5432,
             user: process.env.DB_USER || "postgres",
-            password: process.env.DB_PASSWORD || "postgres",
-            database: process.env.DB_NAME || "testdb",
+            password: process.env.DB_PASSWORD || "postgres.db",
+            database: process.env.DB_NAME || "appdb",
         })
 
-        await client.connect()
-        await client.query(`SET search_path TO ${process.env.DB_SCHEMA || "public"};`);
-        console.log("Postgres Datenbank verbunden")
+        await client.connect();
+        logger.info("Conneted to db")
+        const schema = await client.query(`SELECT nspname AS schema_name,
+            pg_catalog.pg_get_userbyid(nspowner) AS owner
+            FROM pg_namespace
+            ORDER BY schema_name;
+            `)
+        logger.info(schema)
+        try {
+            await client.query(`SET search_path TO ${process.env.DB_SCHEMA || "ase-2_schema"};`);
+        } catch (error) {
+            logger.error(error, "Could not select db schema")
+        }
     }
 }
 

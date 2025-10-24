@@ -1,34 +1,14 @@
 const express = require('express');
 const { query } = require('../../helper/getCon');
 const { requireRole } = require('../../helper/permission');
-const { Event, EventType, EventUtils } = require('../../models/Event');
+const { Event, EventType } = require('../../models/Event');
 const { getEntries } = require('../../helper/getEntries');
 const logger = require('../../helper/logger');
 const router = express.Router();
 
 // Beispiel-Events mit dem neuen Datenmodell
 const exampleEvents = [
-    new Event({
-        time: "2025-07-23T10:00:00Z",
-        endTime: "2025-07-23T12:00:00Z",
-        title: "Database Systems II",
-        roomId: "a4f3e1ab-003f-4b88-b4cd-6e6e22a5c9cd",
-        courseId: "de305d54-75b4-431b-adb2-eb6b9e546014",
-        studyGroup: "INF21A",
-        lecturer: "Prof. Dr. Schmidt",
-        type: EventType.KURS,
-        groupId: "d1a113fd-d62e-4be1-92fc-2b0977c0c20d"
-    }),
-    new Event({
-        time: "2025-07-23T14:00:00Z",
-        endTime: "2025-07-23T15:30:00Z",
-        title: "Sprechstunde Dekan",
-        roomId: "b5g4f2bc-114g-5c99-c5de-7f7f33b6d0de",
-        courseId: "SPRECHSTUNDE-001",
-        studyGroup: "ALLE",
-        lecturer: "Prof. Dr. Müller",
-        type: EventType.DEKANSPRECHSTUNDE
-    })
+
 ];
 
 router.get("", requireRole("view-profile"), async (req, res) => {

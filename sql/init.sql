@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS events (
     lecturer_id TEXT NOT NULL,
     lecturer_name TEXT NOT NULL,
     type TEXT CHECK (type IN ('Kurs', 'Dekansprechstunde', 'Klausureinsicht', 'Prüfung', 'E-Learning', 'Sonstiges')) DEFAULT 'Kurs',
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
     comment TEXT
 );
 

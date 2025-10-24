@@ -8,7 +8,7 @@ const { getEntries } = require('../../helper/getEntries');
 const router = express.Router();
 
 // Neue Route für Event-Management
-router.get("/:id", requireRole("manage-schedule"), async (req, res) => {
+router.get("/:id", async (req, res) => {
     const eventId = req.params.id;
     try {
         const [result] = await getEntries({ id: eventId });
@@ -23,28 +23,29 @@ router.get("/:id", requireRole("manage-schedule"), async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
-router.post("/", requireRole("manage-schedule"), async (req, res) => {
+router.post("/", async (req, res) => {
     let event = {};
     try {
         event = new Event(req.body);
     } catch (error) {
-        console.log(error)
+        logger.error(error)
         return res.status(400).json({ err: error })
     }
     try {
         const event = new Event(req.body);
+        logger.info(event)
         id = randomUUID()
-        const insertQuery = "INSERT INTO events (id, time, end_time, title, room_id, course_id, study_group, lecturer_id, type, group_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        await query(insertQuery, [id, event.time, event.endTime, event.title, event.roomId, event.courseId, event.studyGroup, event.lecturer, event.type, event.groupId]);
+        const insertQuery = "INSERT INTO events (id, time, end_time, title, room_id, room_name,  study_group, lecturer_id, lecturer_name, type, comment) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        await query(insertQuery, [id, event.time, event.endTime, event.title, event.room_id, event.room_name, event.studyGroup, event.lecturer_id, event.lecturer_name, event.type, event.comment ? event.comment : null]);
         event.id = id;
-        res.status(201).json(event.toJSON());
+        res.status(201).json(event);
     } catch (error) {
         logger.error(error, `An error accured while creating event`)
 
         res.status(500).send("Internal Server Error");
     }
 });
-router.put("/:id", requireRole("manage-schedule"), async (req, res) => {
+router.put("/:id", async (req, res) => {
     let event = {};
     const eventId = req.params.id;
     try {
@@ -53,20 +54,20 @@ router.put("/:id", requireRole("manage-schedule"), async (req, res) => {
         return res.status(400).json({ err: error })
     }
     try {
-        const insertQuery = "UPDATE events SET time = ?, end_time = ?, title = ?, room_id = ?, course_id = ?, study_group = ?, lecturer_id = ?, type = ?, group_id = ? WHERE id = ?";
-        await query(insertQuery, [event.time, event.endTime, event.title, event.roomId, event.courseId, event.studyGroup, event.lecturer, event.type, event.groupId, eventId]);
-        res.status(200).json(event.toJSON());
+        const insertQuery = "UPDATE events SET time = ?, end_time = ?, title = ?, room_id = ?, room_name = ?, study_group = ?, lecturer_id = ?,lecturer_name = ?, type = ?, comment = ? WHERE id = ?";
+        await query(insertQuery, [event.time, event.endTime, event.title, event.room_id, event.room_name, event.studyGroup, event.lecturer_id, event.lecturer_name, event.type, event.comment ? event.comment : null, eventId]);
+        res.status(200).json(event);
     } catch (error) {
         logger.error(error, `An error accured while edeting event: ${eventId}`)
         res.status(500).send("Internal Server Error");
     }
 });
-router.delete("/:id", requireRole("manage-schedule"), async (req, res) => {
+router.delete("/:id", async (req, res) => {
     const eventId = req.params.id;
     try {
         const insertQuery = "DELETE FROM events WHERE id = ?";
         await query(insertQuery, [eventId]);
-        res.status(204);
+        res.status(204).end();
     } catch (error) {
         logger.error(error, `An error accured while deleting event: ${eventId}`)
         res.status(500).send("Internal Server Error");

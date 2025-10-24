@@ -3,7 +3,6 @@ const sqlite3 = require("sqlite3")
 const pkg = require("pg")
 const logger = require("./logger")
 const fs = require('fs')
-
 const isDev = process.env.NODE_ENV !== "prod"
 console.log(process.env.NODE_ENV)
 let client
@@ -19,7 +18,7 @@ async function initDB() {
         // Foreign keys aktivieren (wichtig für Kompatibilität mit Postgres)
         client.exec("PRAGMA foreign_keys = ON;")
         if (new_db) {
-            query(fs.readFileSync("./sql/schema.sql", "utf-8"))
+            query(fs.readFileSync("./sql/init.sql", "utf-8"))
             logger.info("New SLQLite DB created")
         }
     } else {
@@ -35,12 +34,7 @@ async function initDB() {
 
         await client.connect();
         logger.info("Conneted to db")
-        const schema = await client.query(`SELECT nspname AS schema_name,
-            pg_catalog.pg_get_userbyid(nspowner) AS owner
-            FROM pg_namespace
-            ORDER BY schema_name;
-            `)
-        logger.info(schema)
+        await ensureDbInitialized(client)
         try {
             await client.query(`SET search_path TO ${process.env.DB_SCHEMA || "ase-2_schema"};`);
         } catch (error) {
@@ -73,6 +67,35 @@ function query(sql, params = []) {
 function normalizeQuery(query) {
     let i = 0;
     return query.replace(/\?/g, () => `$${++i}`);
+}
+
+async function ensureDbInitialized(pool) {
+    // Schritt 1: Warten bis DB erreichbar ist
+    let connected = false;
+    while (!connected) {
+        try {
+            await pool.query('SELECT 1');
+            connected = true;
+        } catch (err) {
+            logger.error('DB nicht erreichbar – versuche erneut in 2s...');
+            await new Promise(r => setTimeout(r, 2000));
+        }
+    }
+
+    // Schritt 2: Prüfen, ob eine Tabelle existiert
+    try {
+        await pool.query('SELECT 1 FROM your_table LIMIT 1;');
+        logger.info('DB bereits initialisiert ✅');
+        return;
+    } catch { }
+
+    // Schritt 3: Init.sql ausführen
+    logger.info('DB wird initialisiert...');
+    const initSql = fs.readFileSync('./sql/schema.sql', 'utf-8');
+    logger.info(initSql)
+
+    await pool.query(initSql);
+    logger.info('DB initialisiert ✅');
 }
 
 module.exports = { initDB, query }

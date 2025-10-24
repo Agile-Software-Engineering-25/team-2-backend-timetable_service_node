@@ -24,13 +24,14 @@ class Event {
    * @param {Object} data - Event-Daten
    * @param {string|Date} data.time - Uhrzeit als String oder Date-Objekt
    * @param {string} data.title - Veranstaltungsname
-   * @param {string} data.roomId - Raumreferenz (String-ID)
-   * @param {string} data.courseId - Veranstaltungsnummer
+   * @param {string} data.room_id - Raumreferenz (String-ID)
+   * @param {string} data.room_name - Raumreferenz (String-ID)
    * @param {string} data.studyGroup - Studiengruppe
-   * @param {string} [data.lecturer] - Dozent/Dozentin (optional)
-   * @param {string} [data.type] - Veranstaltungstyp aus EventType enum
-   * @param {string} [data.endTime] - Endzeit (optional)
-   * @param {string} [data.groupId] - Gruppen-ID (optional)
+   * @param {string} data.lecturer_id - Dozent/Dozentin (optional)
+   * @param {string} [data.lecturer_name] - Dozent/Dozentin (optional)
+   * @param {string} data.type - Veranstaltungstyp aus EventType enum
+   * @param {string} data.endTime - Endzeit (optional)
+   * @param {string} [data.comment] - Endzeit (optional)
    */
   constructor(data) {
     // Pflichtfelder validieren
@@ -39,19 +40,19 @@ class Event {
     // Pflichtfelder
     this.time = data.time;
     this.title = data.title;
-    this.roomId = data.roomId;
-    this.courseId = data.courseId;
-    this.studyGroup = data.studyGroup;
+    this.room_name = data.room_name;
+    this.room_id = data.room_id;
 
     // Optionale Felder
-    this.lecturer = data.lecturer || null;
+    this.lecturer_id = data.lecturer_id || null;
+    this.lecturer_name = data.lecturer_name || null;
     this.type = data.type || EventType.SONSTIGES;
     this.endTime = data.endTime || null;
-    this.groupId = data.groupId || null;
+    this.studyGroup = data.studyGroup || null;
 
     // Automatische Felder
     this.id = data.id || "";
-    this.createdAt = data.createdAt;
+    this.createdAt = data.createdAt || null;
   }
 
   /**
@@ -59,7 +60,7 @@ class Event {
    * @param {Object} data
    */
   validateRequired(data) {
-    const required = ['time', 'title', 'roomId', 'courseId', 'studyGroup'];
+    const required = ["time", "endTime", "title", "studyGroup", "lecturer_id", "lecturer_name", "room_id", "room_name", "type"];
     const missing = required.filter(field => !data[field]);
 
     if (missing.length > 0) {
@@ -67,61 +68,9 @@ class Event {
     }
   }
 
-  /**
-   * Generiert eine eindeutige ID
-   * @returns {string}
-   */
-  generateId() {
-    return 'event_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-  }
 
-  /**
-   * Konvertiert die Zeit in ein Date-Objekt
-   * @returns {Date}
-   */
-  getTimeAsDate() {
-    if (this.time instanceof Date) {
-      return this.time;
-    }
-    return new Date(this.time);
-  }
 
-  /**
-   * Konvertiert die Endzeit in ein Date-Objekt
-   * @returns {Date|null}
-   */
-  getEndTimeAsDate() {
-    if (!this.endTime) return null;
-    if (this.endTime instanceof Date) {
-      return this.endTime;
-    }
-    return new Date(this.endTime);
-  }
 
-  /**
-   * Prüft ob die Veranstaltung zu einem bestimmten Zeitpunkt stattfindet
-   * @param {string|Date} checkTime
-   * @returns {boolean}
-   */
-  isAtTime(checkTime) {
-    const eventTime = this.getTimeAsDate();
-    const check = checkTime instanceof Date ? checkTime : new Date(checkTime);
-    return eventTime.getTime() === check.getTime();
-  }
-
-  /**
-   * Prüft ob die Veranstaltung in einem Zeitraum stattfindet
-   * @param {string|Date} startTime
-   * @param {string|Date} endTime
-   * @returns {boolean}
-   */
-  isInTimeRange(startTime, endTime) {
-    const eventTime = this.getTimeAsDate();
-    const start = startTime instanceof Date ? startTime : new Date(startTime);
-    const end = endTime instanceof Date ? endTime : new Date(endTime);
-
-    return eventTime >= start && eventTime <= end;
-  }
 
   /**
    * Konvertiert das Event zu einem Plain Object
@@ -158,7 +107,7 @@ class Event {
  */
 const EventSchema = {
   type: 'object',
-  required: ['time', 'title', 'roomId', 'courseId', 'studyGroup'],
+  required: [["time", "endTime", "title", "studyGroup", "lecturer_id", "lecturer_name", "room_id", "room_name", "type"]],
   properties: {
     id: {
       type: 'string',
@@ -174,14 +123,14 @@ const EventSchema = {
       description: 'Name der Veranstaltung',
       minLength: 1
     },
-    roomId: {
+    room_id: {
       type: 'string',
       description: 'Referenz zum Raum (externe Verwaltung)',
       minLength: 1
     },
-    courseId: {
+    room_name: {
       type: 'string',
-      description: 'Veranstaltungsnummer',
+      description: 'Anzeigename des Raums',
       minLength: 1
     },
     studyGroup: {
@@ -189,7 +138,11 @@ const EventSchema = {
       description: 'Studiengruppe',
       minLength: 1
     },
-    lecturer: {
+    lecturer_name: {
+      type: ['string', 'null'],
+      description: 'Dozent/Dozentin (optional)'
+    },
+    lecturer_id: {
       type: ['string', 'null'],
       description: 'Dozent/Dozentin (optional)'
     },
@@ -203,10 +156,6 @@ const EventSchema = {
       description: 'Endzeit der Veranstaltung (ISO 8601 Format)',
       format: 'date-time'
     },
-    groupId: {
-      type: ['string', 'null'],
-      description: 'Gruppen-ID (optional)'
-    },
     createdAt: {
       type: 'string',
       description: 'Erstellungszeitpunkt',
@@ -216,75 +165,8 @@ const EventSchema = {
   additionalProperties: false
 };
 
-/**
- * Utility-Funktionen für Event-Manipulation
- */
-const EventUtils = {
-  /**
-   * Gruppiert Events nach Datum
-   * @param {Event[]} events
-   * @returns {Object}
-   */
-  groupByDate(events) {
-    return events.reduce((groups, event) => {
-      const date = event.getTimeAsDate().toISOString().split('T')[0];
-      if (!groups[date]) {
-        groups[date] = [];
-      }
-      groups[date].push(event);
-      return groups;
-    }, {});
-  },
 
-  /**
-   * Sortiert Events nach Zeit
-   * @param {Event[]} events
-   * @returns {Event[]}
-   */
-  sortByTime(events) {
-    return [...events].sort((a, b) => {
-      return a.getTimeAsDate().getTime() - b.getTimeAsDate().getTime();
-    });
-  },
-
-  /**
-   * Findet Konflikte zwischen Events (gleiche Zeit, Raum oder Dozent)
-   * @param {Event[]} events
-   * @returns {Object}
-   */
-  findConflicts(events) {
-    const conflicts = {
-      timeRoom: [], // Gleicher Raum zur gleichen Zeit
-      timeLecturer: [] // Gleicher Dozent zur gleichen Zeit
-    };
-
-    for (let i = 0; i < events.length; i++) {
-      for (let j = i + 1; j < events.length; j++) {
-        const event1 = events[i];
-        const event2 = events[j];
-
-        if (event1.isAtTime(event2.time)) {
-          // Raumkonflikt
-          if (event1.roomId === event2.roomId) {
-            conflicts.timeRoom.push([event1, event2]);
-          }
-
-          // Dozentenkonflikt
-          if (event1.lecturer && event2.lecturer &&
-            event1.lecturer === event2.lecturer) {
-            conflicts.timeLecturer.push([event1, event2]);
-          }
-        }
-      }
-    }
-
-    return conflicts;
-  }
-};
 
 module.exports = {
   Event,
-  EventType,
-  EventSchema,
-  EventUtils
 };

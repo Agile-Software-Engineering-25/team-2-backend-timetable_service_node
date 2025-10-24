@@ -3,7 +3,6 @@ const sqlite3 = require("sqlite3")
 const pkg = require("pg")
 const logger = require("./logger")
 const fs = require('fs')
-const { readFile } = require('fs/promises');
 const isDev = process.env.NODE_ENV !== "prod"
 console.log(process.env.NODE_ENV)
 let client
@@ -92,7 +91,7 @@ async function ensureDbInitialized(pool) {
 
     // Schritt 3: Init.sql ausführen
     logger.info('DB wird initialisiert...');
-    const initSql = await readFile('../sql/schema.sql', 'utf-8');
+    const initSql = fs.readFileSync('../sql/schema.sql', 'utf-8');
     await pool.query(initSql);
     logger.info('DB initialisiert ✅');
 }

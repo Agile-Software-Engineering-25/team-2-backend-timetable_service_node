@@ -71,7 +71,6 @@ function normalizeQuery(query) {
 
 async function ensureDbInitialized(pool) {
     // Schritt 1: Warten bis DB erreichbar ist
-    logger.info(initSql)
     let connected = false;
     while (!connected) {
         try {
@@ -93,6 +92,7 @@ async function ensureDbInitialized(pool) {
     // Schritt 3: Init.sql ausführen
     logger.info('DB wird initialisiert...');
     const initSql = fs.readFileSync('./sql/schema.sql', 'utf-8');
+    logger.info(initSql)
 
     await pool.query(initSql);
     logger.info('DB initialisiert ✅');

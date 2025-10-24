@@ -5,13 +5,14 @@ CREATE TABLE IF NOT EXISTS events (
     time TEXT NOT NULL,
     end_time TEXT,
     title TEXT NOT NULL,
+    room_name TEXT NOT NULL,
     room_id TEXT NOT NULL,
-    course_id TEXT NOT NULL,
     study_group TEXT NOT NULL,
-    module TEXT NOT NULL,
+    module_name TEXT NOT NULL,
+    module_id TEXT NOT NULL,
     lecturer_id TEXT NOT NULL,     
+    lecturer_name TEXT NOT NULL,     
     type TEXT CHECK (type IN ('Kurs', 'Dekansprechstunde', 'Klausureinsicht', 'Prüfung', 'E-Learning', 'Sonstiges')) DEFAULT 'Kurs',
-    group_id TEXT,       -- Optional
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     comment TEXT DEFAULT NULL
     );

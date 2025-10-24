@@ -22,7 +22,6 @@ async function initDB() {
             logger.info("New SLQLite DB created")
         }
     } else {
-        await ensureDbInitialized()
         // Postgres
         const { Client } = pkg
         client = new Client({
@@ -72,7 +71,6 @@ function normalizeQuery(query) {
 
 async function ensureDbInitialized(pool) {
     // Schritt 1: Warten bis DB erreichbar ist
-    const initSql = fs.readFileSync('./sql/schema.sql', 'utf-8');
     logger.info(initSql)
     let connected = false;
     while (!connected) {
@@ -94,6 +92,7 @@ async function ensureDbInitialized(pool) {
 
     // Schritt 3: Init.sql ausführen
     logger.info('DB wird initialisiert...');
+    const initSql = fs.readFileSync('./sql/schema.sql', 'utf-8');
 
     await pool.query(initSql);
     logger.info('DB initialisiert ✅');

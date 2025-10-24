@@ -3,7 +3,7 @@ const sqlite3 = require("sqlite3")
 const pkg = require("pg")
 const logger = require("./logger")
 const fs = require('fs')
-const readFile = require('fs/promises');
+const { readFile } = require('fs/promises');
 const isDev = process.env.NODE_ENV !== "prod"
 console.log(process.env.NODE_ENV)
 let client

@@ -18,7 +18,7 @@ async function initDB() {
         // Foreign keys aktivieren (wichtig für Kompatibilität mit Postgres)
         client.exec("PRAGMA foreign_keys = ON;")
         if (new_db) {
-            query(fs.readFileSync("./sql/schema.sql", "utf-8"))
+            query(fs.readFileSync("./sql/init.sql", "utf-8"))
             logger.info("New SLQLite DB created")
         }
     } else {

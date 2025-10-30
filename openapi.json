@@ -437,6 +437,33 @@
           }
         }
       }
+    },
+    "/timetable/health": {
+      "get": {
+        "summary": "Auto-generiert: GET /timetable/health",
+        "tags": [
+          "General"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Erfolg"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

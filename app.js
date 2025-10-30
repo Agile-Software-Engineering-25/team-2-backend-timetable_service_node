@@ -82,7 +82,6 @@ async function startServer() {
     const port = process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT
     const server = app.listen(port, async () => {
         await getAuthToken();
-        logger.info(process.env.AUTH_TOKEN)
         setInterval(async () => {
             await getAuthToken();
         }, 10 * 60 * 1000);

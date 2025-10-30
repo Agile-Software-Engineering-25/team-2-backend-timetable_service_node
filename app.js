@@ -11,6 +11,7 @@ const pinoHttp = require('pino-http');
 const logger = require('./helper/logger');
 const { setContext } = require('./helper/context');
 const { initDB } = require('./helper/getCon');
+const { getAuthToken } = require('./helper/getAuthToken');
 
 
 // Middleware
@@ -79,8 +80,13 @@ app.use(`${api}/event`, eventRouter);
 async function startServer() {
     await initDB()
     const port = process.env.NODE_ENV !== "prod" ? process.env.TEST_PORT : process.env.PROD_PORT
-    const server = app.listen(port, () => {
-        console.log(`Server running on http://localhost:${port}`)
+    const server = app.listen(port, async () => {
+        await getAuthToken();
+        logger.info(process.env.AUTH_TOKEN)
+        setInterval(async () => {
+            await getAuthToken();
+        }, 10 * 60 * 1000);
+        logger.info(`Server running on http://localhost:${port}`)
     })
     return server
 }

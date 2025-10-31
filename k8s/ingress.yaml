@@ -12,7 +12,7 @@ spec:
     - host: sau-portal.de
       http:
         paths:
-          - path: /timetable # specify under which path your service should be reachable
+          - path: /api/timetable # specify under which path your service should be reachable
             pathType: Prefix
             backend:
               service:

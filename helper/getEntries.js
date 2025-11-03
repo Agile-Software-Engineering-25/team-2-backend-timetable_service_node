@@ -1,14 +1,10 @@
 const { query } = require("./getCon");
 const logger = require("./logger");
 
-async function getEntries(filter, user = null) {
+async function getEntries(filter) {
     const filters = [];
     const params = [];
 
-    // if (user.lecturer) {
-    //     filter.lecturer = lecturer;
-    // }
-    // Basisabfrage
     let getEntries = "SELECT * FROM events"
 
     if (filter.id) {

@@ -33,6 +33,8 @@ ENV DB_HOST=postgres.db
 ENV DB_PORT=5432
 ENV DB_NAME=appdb
 ENV DB_SCHEMA=ase-2_schema
+ENV AUTH_URL = https://keycloak.sau-portal.de/realms/sau/protocol/openid-connect/token
+
 EXPOSE 3000
 
 ENTRYPOINT ["dumb-init", "--"]

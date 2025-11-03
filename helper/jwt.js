@@ -26,8 +26,9 @@ function authJwt() {
       req.user = {
         realm_access: req.user.realm_access,
         resource_access: req.user.resource_access,
+        cohort: req.user.cohort || undefined,
+        sub: req.user.sub || undefined
       }
-      // nur der user Teil
       next();
     };
     // return eine kombinierte Middleware für Express
@@ -55,8 +56,8 @@ function authJwt() {
     };
 
   } catch (error) {
-    console.error("JWT Error")
-    console.error(error)
+    logger.error("JWT Error")
+    logger.error(error)
     throw error
   }
 }

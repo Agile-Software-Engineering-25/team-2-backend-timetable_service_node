@@ -16,13 +16,14 @@ router.get("", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
 
 
     try {
-        const result = await getEntries(filter, userMail);
+        const result = await getEntries(filter);
         if (result.length === 0) {
             return res.status(404).send("No Entries found");
         }
         return res.status(200).send(result)
     }
     catch (error) {
+        logger.error(error, `Could not fetch events with filter ${JSON.stringify(filter)}`)
         return res.status(500).send("Inernal Server Error");
     }
 });
@@ -35,7 +36,7 @@ router.get("/personal", requireRole("Area-1.Team-2.Read.Events"), async (req, re
         filter.lecturerId = user.sub
     }
     try {
-        const result = await getEntries(filter, userMail);
+        const result = await getEntries(filter);
         if (result.length === 0) {
             return res.status(404).send("No Entries found")
         }

@@ -29,13 +29,13 @@ spec:
               cpu: "300m"
           readinessProbe:
             httpGet:
-              path: /timetable/health # you might need to change this to a health endpoint of your application
+              path: /api/timetable/health # you might need to change this to a health endpoint of your application
               port: 3000
             initialDelaySeconds: 10
             periodSeconds: 5
           livenessProbe:
             httpGet:
-              path: /timetable/health # you might need to change this to a health endpoint of your application
+              path: /api/timetable/health # you might need to change this to a health endpoint of your application
               port: 3000
             initialDelaySeconds: 120
             periodSeconds: 20
@@ -56,3 +56,13 @@ spec:
                 secretKeyRef:
                   name: db-credentials
                   key: POSTGRES_PASSWORD
+            - name: CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: client-credentials
+                  key: CLIENT_ID
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: client-credentials
+                  key: CLIENT_SECRET

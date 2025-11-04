@@ -8,7 +8,7 @@ const { getEntries } = require('../../helper/getEntries');
 const router = express.Router();
 
 // Neue Route für Event-Management
-router.get("/:id", async (req, res) => {
+router.get("/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     const eventId = req.params.id;
     try {
         const [result] = await getEntries({ id: eventId });
@@ -23,7 +23,7 @@ router.get("/:id", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
-router.post("/", async (req, res) => {
+router.post("/", requireRole("Area-1.Team-2.Update.Events"), async (req, res) => {
     let event = {};
     try {
         event = new Event(req.body);
@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
-router.put("/:id", async (req, res) => {
+router.put("/:id", requireRole("Area-1.Team-2.Update.Events"), async (req, res) => {
     let event = {};
     const eventId = req.params.id;
     try {
@@ -62,7 +62,7 @@ router.put("/:id", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", requireRole("Area-1.Team-2.Delete.Events"), async (req, res) => {
     const eventId = req.params.id;
     try {
         const insertQuery = "DELETE FROM events WHERE id = ?";

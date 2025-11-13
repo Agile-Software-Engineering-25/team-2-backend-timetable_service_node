@@ -39,7 +39,7 @@ router.post("/", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
         const insertQuery = "INSERT INTO events (id, time, end_time, title, room_id, room_name,  study_group, lecturer_id, lecturer_name, type, module_name, comment) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         await query(insertQuery, [id, event.time, event.endTime, event.title, event.room_id, event.room_name, event.studyGroup, event.lecturer_id, event.lecturer_name, event.type, event.module, event.comment ? event.comment : null]);
         event.id = id;
-        res.status(201).json(await getEntries({ id: eventId }));
+        res.status(201).json(await getEntries({ id: id })[0]);
     } catch (error) {
         logger.error(error, `An error accured while creating event`)
 
@@ -57,7 +57,7 @@ router.put("/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) =>
     try {
         const insertQuery = "UPDATE events SET time = ?, end_time = ?, title = ?, room_id = ?, room_name = ?, study_group = ?, lecturer_id = ?,lecturer_name = ?, type = ?, module_name = ?, comment = ? WHERE id = ?";
         await query(insertQuery, [event.time, event.endTime, event.title, event.room_id, event.room_name, event.studyGroup, event.lecturer_id, event.lecturer_name, event.type, event.module, event.comment ? event.comment : null, eventId]);
-        res.status(200).json(await getEntries({ id: eventId }));
+        res.status(200).json(await getEntries({ id: eventId })[0]);
     } catch (error) {
         logger.error(error, `An error accured while edeting event: ${eventId}`)
         res.status(500).send("Internal Server Error");

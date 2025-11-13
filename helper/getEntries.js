@@ -40,7 +40,6 @@ async function getEntries(filter) {
     if (filters.length > 0) {
         getEntries += ' WHERE ' + filters.join(" AND ");
     }
-    getEntries += " GROUP BY DAY(time), id "
     // Sortierung und Paginierung
     getEntries += " ORDER BY time ";
     try {

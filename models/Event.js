@@ -50,7 +50,7 @@ class Event {
     this.type = data.type || EventType.SONSTIGES;
     this.endTime = data.endTime || null;
     this.studyGroup = data.studyGroup || null;
-
+    this.comment = data.comment || null;
     // Automatische Felder
     this.id = data.id || "";
     this.createdAt = data.createdAt || null;

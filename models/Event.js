@@ -24,6 +24,7 @@ class Event {
    * @param {Object} data - Event-Daten
    * @param {string|Date} data.time - Uhrzeit als String oder Date-Objekt
    * @param {string} data.title - Veranstaltungsname
+   * @param {string} data.module - Veranstaltungsname
    * @param {string} data.room_id - Raumreferenz (String-ID)
    * @param {string} data.room_name - Raumreferenz (String-ID)
    * @param {string} data.studyGroup - Studiengruppe
@@ -42,7 +43,7 @@ class Event {
     this.title = data.title;
     this.room_name = data.room_name;
     this.room_id = data.room_id;
-
+    this.module = data.module
     // Optionale Felder
     this.lecturer_id = data.lecturer_id || null;
     this.lecturer_name = data.lecturer_name || null;
@@ -60,7 +61,7 @@ class Event {
    * @param {Object} data
    */
   validateRequired(data) {
-    const required = ["time", "endTime", "title", "studyGroup", "lecturer_id", "lecturer_name", "room_id", "room_name", "type"];
+    const required = ["time", "endTime", "title", "studyGroup", "lecturer_id", "lecturer_name", "room_id", "room_name", "type", "module"];
     const missing = required.filter(field => !data[field]);
 
     if (missing.length > 0) {
@@ -79,15 +80,17 @@ class Event {
   toJSON() {
     return {
       id: this.id,
-      time: this.time,
-      title: this.title,
-      roomId: this.roomId,
-      courseId: this.courseId,
-      studyGroup: this.studyGroup,
-      lecturer: this.lecturer,
-      type: this.type,
-      endTime: this.endTime,
-      groupId: this.groupId,
+      endTime:this.endTime,
+      comment:this.comment,
+      lecturer_id:this.lecturer_id,      
+      lecturer_name:this.lecturer_name,    
+      module:this.module,      
+      room_id:this.room_id,      
+      room_name:this.room_name,            
+      studyGroup:this.studyGroup,      
+      time:this.time,     
+      title:this.title,      
+      type:this.type,
       createdAt: this.createdAt
     };
   }
@@ -101,71 +104,6 @@ class Event {
     return new Event(obj);
   }
 }
-
-/**
- * JSON Schema für Event-Validierung
- */
-const EventSchema = {
-  type: 'object',
-  required: [["time", "endTime", "title", "studyGroup", "lecturer_id", "lecturer_name", "room_id", "room_name", "type"]],
-  properties: {
-    id: {
-      type: 'string',
-      description: 'Eindeutige Event-ID'
-    },
-    time: {
-      type: 'string',
-      description: 'Startzeit der Veranstaltung (ISO 8601 Format)',
-      format: 'date-time'
-    },
-    title: {
-      type: 'string',
-      description: 'Name der Veranstaltung',
-      minLength: 1
-    },
-    room_id: {
-      type: 'string',
-      description: 'Referenz zum Raum (externe Verwaltung)',
-      minLength: 1
-    },
-    room_name: {
-      type: 'string',
-      description: 'Anzeigename des Raums',
-      minLength: 1
-    },
-    studyGroup: {
-      type: 'string',
-      description: 'Studiengruppe',
-      minLength: 1
-    },
-    lecturer_name: {
-      type: ['string', 'null'],
-      description: 'Dozent/Dozentin (optional)'
-    },
-    lecturer_id: {
-      type: ['string', 'null'],
-      description: 'Dozent/Dozentin (optional)'
-    },
-    type: {
-      type: 'string',
-      enum: Object.values(EventType),
-      description: 'Typ der Veranstaltung'
-    },
-    endTime: {
-      type: ['string', 'null'],
-      description: 'Endzeit der Veranstaltung (ISO 8601 Format)',
-      format: 'date-time'
-    },
-    createdAt: {
-      type: 'string',
-      description: 'Erstellungszeitpunkt',
-      format: 'date-time'
-    }
-  },
-  additionalProperties: false
-};
-
-
 
 module.exports = {
   Event,

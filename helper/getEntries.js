@@ -46,20 +46,22 @@ async function getEntries(filter) {
         logger.info(`Query: ${getEntries} | Parms: ${params}`)
         const entries = await query(getEntries, params);
         const result = [];
-        logger.debug(entries)
+        logger.info(entries)
         entries.forEach(entry => {
             result.push({
                 id: entry.id,
                 title: entry.title,
-                roomId: entry.room_id,
-                lecturer: entry.lecturer_id,
-                groupId: entry.group_id,
+                room_id: entry.room_id,
+                room_name: entry.room_name,
+                lecturer_id: entry.lecturer_id,
+                lecturer_name: entry.lecturer_id,
                 time: entry.time,
                 endTime: entry.end_time,
-                courseId: entry.course_id,
+                module:entry.module_name,
                 type: entry.type,
                 created_at: entry.created_at || "",
-                studyGroup: entry.study_group
+                studyGroup: entry.study_group,
+                comment: entry.comment
             })
         });
         return result;

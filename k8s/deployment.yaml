@@ -32,7 +32,7 @@ spec:
               path: /api/timetable/health # you might need to change this to a health endpoint of your application
               port: 3000
             initialDelaySeconds: 10
-            periodSeconds: 5
+            periodSeconds: 60
           livenessProbe:
             httpGet:
               path: /api/timetable/health # you might need to change this to a health endpoint of your application

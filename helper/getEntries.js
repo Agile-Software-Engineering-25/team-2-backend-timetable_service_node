@@ -53,7 +53,7 @@ async function getEntries(filter) {
                 title: entry.title,
                 room_id: entry.room_id,
                 room_name: entry.room_name,
-                lecturer_id: entry.lecturer_id,
+                lecturer_id: entry.lecturer_name,
                 lecturer_name: entry.lecturer_id,
                 time: entry.time,
                 endTime: entry.end_time,

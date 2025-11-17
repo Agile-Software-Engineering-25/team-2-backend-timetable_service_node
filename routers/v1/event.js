@@ -23,7 +23,7 @@ router.get("/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) =>
         res.status(500).send("Internal Server Error");
     }
 });
-router.post("/", requireRole("Area-1.Team-2.Update.Events"), async (req, res) => {
+router.post("/", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     let event = {};
     try {
         event = new Event(req.body);
@@ -31,21 +31,22 @@ router.post("/", requireRole("Area-1.Team-2.Update.Events"), async (req, res) =>
         logger.error(error)
         return res.status(400).json({ err: error })
     }
+    logger.info(req.body)
+
     try {
-        const event = new Event(req.body);
         logger.info(event)
         id = randomUUID()
-        const insertQuery = "INSERT INTO events (id, time, end_time, title, room_id, room_name,  study_group, lecturer_id, lecturer_name, type, comment) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        await query(insertQuery, [id, event.time, event.endTime, event.title, event.room_id, event.room_name, event.studyGroup, event.lecturer_id, event.lecturer_name, event.type, event.comment ? event.comment : null]);
+        const insertQuery = "INSERT INTO events (id, time, end_time, title, room_id, room_name,  study_group, lecturer_id, lecturer_name, type, module_name, comment) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        await query(insertQuery, [id, event.time, event.endTime, event.title, event.room_id, event.room_name, event.studyGroup, event.lecturer_id, event.lecturer_name, event.type, event.module, event.comment ? event.comment : null]);
         event.id = id;
-        res.status(201).json(event);
+        res.status(201).json(await getEntries({ id: id })[0]);
     } catch (error) {
         logger.error(error, `An error accured while creating event`)
 
         res.status(500).send("Internal Server Error");
     }
 });
-router.put("/:id", requireRole("Area-1.Team-2.Update.Events"), async (req, res) => {
+router.put("/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     let event = {};
     const eventId = req.params.id;
     try {
@@ -54,9 +55,10 @@ router.put("/:id", requireRole("Area-1.Team-2.Update.Events"), async (req, res) 
         return res.status(400).json({ err: error })
     }
     try {
-        const insertQuery = "UPDATE events SET time = ?, end_time = ?, title = ?, room_id = ?, room_name = ?, study_group = ?, lecturer_id = ?,lecturer_name = ?, type = ?, comment = ? WHERE id = ?";
-        await query(insertQuery, [event.time, event.endTime, event.title, event.room_id, event.room_name, event.studyGroup, event.lecturer_id, event.lecturer_name, event.type, event.comment ? event.comment : null, eventId]);
-        res.status(200).json(event);
+        const insertQuery = "UPDATE events SET time = ?, end_time = ?, title = ?, room_id = ?, room_name = ?, study_group = ?, lecturer_id = ?,lecturer_name = ?, type = ?, module_name = ?, comment = ? WHERE id = ?";
+        await query(insertQuery, [event.time, event.endTime, event.title, event.room_id, event.room_name, event.studyGroup, event.lecturer_id, event.lecturer_name, event.type, event.module, event.comment ? event.comment : null, eventId]);
+        const [response] = await getEntries({ id: eventId })
+        res.status(200).json(response);
     } catch (error) {
         logger.error(error, `An error accured while edeting event: ${eventId}`)
         res.status(500).send("Internal Server Error");

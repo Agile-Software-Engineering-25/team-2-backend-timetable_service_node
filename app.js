@@ -48,7 +48,7 @@ app.use(pinoHttp({
 }));
 
 
-app.get("/timetable/health", (req, res) => res.status(200).send("OK"));
+app.get("/api/timetable/health", (req, res) => res.status(200).send("OK"));
 
 // Redirect auf /docs für Development
 // app.get("/", (req, res) => res.redirect(`${api}/docs`));

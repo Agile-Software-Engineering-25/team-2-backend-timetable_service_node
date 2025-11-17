@@ -8,7 +8,7 @@ class UserModel {
         const token = process.env.AUTH_TOKEN
         try {
             const response = await fetch(url, {
-                method: "POST",
+                method: "GET",
                 headers: {
                     "Content-Type": "Content-Type: application/json",
                     "Authorization": `Bearer ${token}`

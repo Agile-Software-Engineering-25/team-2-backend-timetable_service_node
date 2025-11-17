@@ -18,7 +18,7 @@ class RoomModel {
             startTime: event.time,
             endTime: event.endTime
         }
-        const url = "https://sau-portal.de/ase-1/room-mgmt/rooms/v1/bookings";
+        const url = "https://sau-portal.de/ase-1/room-mgmt/rooms/bookings";
         const token = process.env.AUTH_TOKEN
         try {
             const response = await fetch(url, {

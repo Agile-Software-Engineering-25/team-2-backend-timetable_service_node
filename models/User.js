@@ -13,14 +13,14 @@ class UserModel {
                     "Content-Type": "Content-Type: application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                credentials: "include", // Cookies mit der Anfrage senden
             });
 
             if (!response.ok) {
                 logger.info(response.status)
                 logger.info(url)
                 logger.error()
-                throw new Error(`Could not get user: ${JSON.stringify(await response.json)}} `)
+                const responseData = await response.json()
+                throw new Error(`Could not get user: ${JSON.stringify(responseData)}} `)
             } else {
                 return await response.json()
             }

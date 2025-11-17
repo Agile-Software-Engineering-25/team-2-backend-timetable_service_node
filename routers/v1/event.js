@@ -37,6 +37,8 @@ router.post("/", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     }
 
     try {
+        const eventCopy = structuredClone(event)
+        await roomModel.bookRoom(eventCopy)
         logger.info(event)
         await roomModel.bookRoom(event)
         id = randomUUID()

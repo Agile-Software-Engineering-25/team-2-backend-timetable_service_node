@@ -5,7 +5,7 @@ class RoomModel {
     constructor() {
     }
     async bookRoom(event) {
-        logger.warn(event)
+        console.log(event)
         const roomBody = {
             roomId: event.room_id,
             lecturerIds: [
@@ -15,8 +15,8 @@ class RoomModel {
                 randomUUID()
             ],
             groupSize: 1,
-            startTime: time,
-            endTime: endTime
+            startTime: event.time,
+            endTime: event.endTime
         }
         const url = "https://sau-portal.de/ase-1/room-mgmt/rooms/v1/bookings";
         const token = process.env.AUTH_TOKEN

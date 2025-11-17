@@ -17,6 +17,8 @@ class UserModel {
             });
 
             if (!response.ok) {
+                logger.info(response.status)
+                logger.info(url)
                 logger.error(response)
                 throw new Error("Could not get user")
             } else {
@@ -24,7 +26,7 @@ class UserModel {
             }
 
         } catch (error) {
-            logger.error(error, "Error creating new API key");
+            logger.error(error, "Error fetching user data");
             throw error
         }
     }

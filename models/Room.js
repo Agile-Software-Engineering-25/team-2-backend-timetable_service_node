@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import logger from "../helper/logger.js";
 export class RoomModel {
     constructor() {
@@ -10,7 +11,7 @@ export class RoomModel {
                 event.lecturer_id
             ],
             studentGroupNames: [
-                event.studyGroup
+                randomUUID()
             ],
             groupSize: 1,
             startTime: time,

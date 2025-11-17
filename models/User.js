@@ -17,7 +17,8 @@ class UserModel {
             });
 
             if (!response.ok) {
-                throw new Error("Could not book room")
+                logger.error(response)
+                throw new Error("Could not get user")
             } else {
                 return await response.json()
             }

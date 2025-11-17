@@ -19,8 +19,8 @@ class UserModel {
             if (!response.ok) {
                 logger.info(response.status)
                 logger.info(url)
-                logger.error(response)
-                throw new Error("Could not get user")
+                logger.error()
+                throw new Error(`Could not get user: ${JSON.stringify(await response.json)}} `)
             } else {
                 return await response.json()
             }

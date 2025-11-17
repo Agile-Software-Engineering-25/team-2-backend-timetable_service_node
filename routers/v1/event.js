@@ -27,13 +27,14 @@ router.get("/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) =>
 });
 router.post("/", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     let event = {};
+    logger.info(req.body)
+
     try {
         event = new Event(req.body);
     } catch (error) {
         logger.error(error)
         return res.status(400).json({ err: error })
     }
-    logger.info(req.body)
 
     try {
         logger.info(event)

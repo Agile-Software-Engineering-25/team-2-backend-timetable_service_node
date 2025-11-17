@@ -27,7 +27,6 @@ router.get("", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
 });
 router.get("/personal/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     const filter = { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
-    logger.info(req.user)
     const userId = req.params.id
     const user = await userModel.getUserById(userId)
     try {
@@ -44,7 +43,6 @@ router.get("/personal/:id", requireRole("Area-1.Team-2.Read.Events"), async (req
         return res.status(200).send(result)
     }
     catch (error) {
-        console.log(error)
         logger.error(error, `Could not fetch personal events ${JSON.stringify(filter)}`)
         return res.status(500).send("Inernal Server Error")
     }

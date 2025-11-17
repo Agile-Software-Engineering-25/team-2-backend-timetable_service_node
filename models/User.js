@@ -13,14 +13,13 @@ class UserModel {
                     "Content-Type": "Content-Type: application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify(roomBody),
                 credentials: "include", // Cookies mit der Anfrage senden
             });
 
             if (!response.ok) {
                 throw new Error("Could not book room")
             } else {
-                return response.json()
+                return await response.json()
             }
 
         } catch (error) {

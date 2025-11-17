@@ -34,7 +34,7 @@ router.get("/personal", requireRole("Area-1.Team-2.Read.Events"), async (req, re
     if (!filter.studyGroup && req.user.cohort) {
         filter.studyGroup = req.user.cohort;
     }
-    if (!filter.lecturerId && req.user.groups.cointains("lecturer")) {
+    if (!filter.lecturerId && req.user.groups.includes("lecturer")) {
         filter.lecturerId = user.sub
     }
     try {

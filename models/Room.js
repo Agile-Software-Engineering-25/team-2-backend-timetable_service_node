@@ -1,8 +1,8 @@
-import { randomUUID } from "crypto";
-import logger from "../helper/logger.js";
-export class RoomModel {
-    constructor() {
+const { randomUUID } = require("crypto");
+const logger = require("../helper/logger.js");
 
+class RoomModel {
+    constructor() {
     }
     async bookRoom(event) {
         const roomBody = {
@@ -35,7 +35,10 @@ export class RoomModel {
 
         } catch (error) {
             logger.error(error, "Error creating new API key");
+            throw error
         }
     }
 
 }
+
+module.exports = RoomModel;

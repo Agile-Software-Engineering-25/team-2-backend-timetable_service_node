@@ -19,8 +19,9 @@ class UserModel {
                 logger.error(responseData)
                 throw new Error(`Could not get user: ${JSON.stringify(responseData)}} `)
             } else {
+                logger.info(response)
                 const responseData = await response.json()
-                logger.info(responseData)
+
                 return responseData
             }
 

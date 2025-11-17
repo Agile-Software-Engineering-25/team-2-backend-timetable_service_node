@@ -27,8 +27,15 @@ router.get("", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
 });
 router.get("/personal/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     const filter = { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
-    const userId = req.params.id
-    const user = await userModel.getUserById(userId)
+    const userId = req.params.id;
+    let token;
+    if (req.headers.authorization &&
+        req.headers.authorization.split(" ")[0] === "Bearer") {
+        token = req.headers.authorization.split(" ")[1];
+    } else {
+        return res.status(401).send("Invalid token")
+    }
+    const user = await userModel.getUserById(userId,)
     try {
         if (!filter.studyGroup && req.user.groups.includes("student")) {
             filter.studyGroup = user.cohort;

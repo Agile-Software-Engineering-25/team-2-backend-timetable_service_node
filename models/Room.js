@@ -20,11 +20,12 @@ class RoomModel {
         }
         const url = "https://sau-portal.de/ase-1/room-mgmt/bookings";
         const token = process.env.AUTH_TOKEN
+        logger.info(roomBody)
         try {
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "Content-Type: application/json",
+                    "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(roomBody),

@@ -35,7 +35,7 @@ router.get("/personal/:id", requireRole("Area-1.Team-2.Read.Events"), async (req
     } else {
         return res.status(401).send("Invalid token")
     }
-    const user = await userModel.getUserById(userId,)
+    const user = await userModel.getUserById(userId, token)
     try {
         if (!filter.studyGroup && req.user.groups.includes("student")) {
             filter.studyGroup = user.cohort;

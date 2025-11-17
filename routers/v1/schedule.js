@@ -27,17 +27,18 @@ router.get("", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
         return res.status(500).send("Inernal Server Error");
     }
 });
-router.get("/personal", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
+router.get("/personal/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     const filter = { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
     logger.info(req.user)
-
-    if (!filter.studyGroup && req.user.cohort) {
-        filter.studyGroup = req.user.cohort;
-    }
-    if (!filter.lecturerId && req.user.groups.includes("lecturer")) {
-        filter.lecturerId = user.sub
-    }
+    const userId = req.params.id
+    // const user = getUserById(userId)
     try {
+        if (!filter.studyGroup && req.user.cohort) {
+            filter.studyGroup = req.user.cohort;
+        }
+        if (!filter.lecturerId && req.user.groups.includes("lecturer")) {
+            filter.lecturerId = userId
+        }
         const result = await getEntries(filter);
         if (result.length === 0) {
             return res.status(404).send("No Entries found")

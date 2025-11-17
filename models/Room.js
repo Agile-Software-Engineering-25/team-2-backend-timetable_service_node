@@ -5,6 +5,7 @@ class RoomModel {
     constructor() {
     }
     async bookRoom(event) {
+        logger.warn(event)
         const roomBody = {
             roomId: event.room_id,
             lecturerIds: [

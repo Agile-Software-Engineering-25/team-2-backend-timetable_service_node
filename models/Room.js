@@ -7,7 +7,7 @@ export class RoomModel {
             lecturerIds: [
                 event.lecturer_id
             ],
-            studentGroupIds: [
+            studentGroupNames: [
                 event.studyGroup
             ],
             groupSize: 1,

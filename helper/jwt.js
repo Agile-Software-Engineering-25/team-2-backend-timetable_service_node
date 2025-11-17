@@ -26,6 +26,7 @@ function authJwt() {
       req.user = {
         realm_access: req.user.realm_access,
         resource_access: req.user.resource_access,
+        groups: req.user.groups,
         cohort: req.user.cohort || undefined,
         sub: req.user.sub || undefined
       }

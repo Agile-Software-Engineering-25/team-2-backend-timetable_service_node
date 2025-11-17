@@ -1,6 +1,8 @@
-import logger from "./logger.js";
-
+import logger from "../helper/logger.js";
 export class RoomModel {
+    constructor() {
+
+    }
     async bookRoom(event) {
         const roomBody = {
             roomId: event.room_id,

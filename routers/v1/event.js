@@ -6,7 +6,8 @@ const logger = require('../../helper/logger');
 const { randomUUID } = require('crypto');
 const { getEntries } = require('../../helper/getEntries');
 const router = express.Router();
-
+const RoomModel = require("../../models/Room")
+const roomModel = new RoomModel()
 // Neue Route für Event-Management
 router.get("/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     const eventId = req.params.id;
@@ -35,6 +36,7 @@ router.post("/", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
 
     try {
         logger.info(event)
+        await RoomModel.bookRoom()
         id = randomUUID()
         const insertQuery = "INSERT INTO events (id, time, end_time, title, room_id, room_name,  study_group, lecturer_id, lecturer_name, type, module_name, comment) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         await query(insertQuery, [id, event.time, event.endTime, event.title, event.room_id, event.room_name, event.studyGroup, event.lecturer_id, event.lecturer_name, event.type, event.module, event.comment ? event.comment : null]);

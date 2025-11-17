@@ -31,7 +31,7 @@ class RoomModel {
                 credentials: "include", // Cookies mit der Anfrage senden
             });
             if (!response.ok) {
-                const responseData = response.json()
+                const responseData = await response.json()
                 logger.error(responseData)
                 throw new Error("Could not book room")
             }

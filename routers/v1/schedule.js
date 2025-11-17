@@ -4,12 +4,10 @@ const { requireRole } = require('../../helper/permission');
 const { Event, EventType } = require('../../models/Event');
 const { getEntries } = require('../../helper/getEntries');
 const logger = require('../../helper/logger');
+const UserModel = require('../../models/User');
 const router = express.Router();
 
-// Beispiel-Events mit dem neuen Datenmodell
-const exampleEvents = [
-
-];
+const userModel = new UserModel()
 
 router.get("", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     const filter = { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
@@ -31,10 +29,10 @@ router.get("/personal/:id", requireRole("Area-1.Team-2.Read.Events"), async (req
     const filter = { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
     logger.info(req.user)
     const userId = req.params.id
-    // const user = getUserById(userId)
+    const user = await userModel.getUserById(userId)
     try {
-        if (!filter.studyGroup && req.user.cohort) {
-            filter.studyGroup = req.user.cohort;
+        if (!filter.studyGroup && req.user.groups.includes("student")) {
+            filter.studyGroup = user.cohort;
         }
         if (!filter.lecturerId && req.user.groups.includes("lecturer")) {
             filter.lecturerId = userId

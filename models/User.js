@@ -1,23 +1,10 @@
-const { randomUUID } = require("crypto");
 const logger = require("../helper/logger.js");
 
-class RoomModel {
+class UserModel {
     constructor() {
     }
-    async bookRoom(event) {
-        const roomBody = {
-            roomId: event.room_id,
-            lecturerIds: [
-                event.lecturer_id
-            ],
-            studentGroupNames: [
-                randomUUID()
-            ],
-            groupSize: 1,
-            startTime: time,
-            endTime: endTime
-        }
-        const url = "https://sau-portal.de/ase-1/room-mgmt/rooms/v1/bookings";
+    async getUserById(userId) {
+        const url = "https://sau-portal.de/team-11-api/api/v1/users/" + userId;
         const token = process.env.AUTH_TOKEN
         try {
             const response = await fetch(url, {
@@ -29,8 +16,11 @@ class RoomModel {
                 body: JSON.stringify(roomBody),
                 credentials: "include", // Cookies mit der Anfrage senden
             });
+
             if (!response.ok) {
                 throw new Error("Could not book room")
+            } else {
+                return response.json()
             }
 
         } catch (error) {
@@ -41,4 +31,4 @@ class RoomModel {
 
 }
 
-module.exports = RoomModel;
+module.exports = UserModel;

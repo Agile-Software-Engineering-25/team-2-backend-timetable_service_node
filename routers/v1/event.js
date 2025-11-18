@@ -6,8 +6,10 @@ const logger = require('../../helper/logger');
 const { randomUUID } = require('crypto');
 const { getEntries } = require('../../helper/getEntries');
 const router = express.Router();
-
+const RoomModel = require("../../models/Room")
 // Neue Route für Event-Management
+const roomModel = new RoomModel()
+
 router.get("/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     const eventId = req.params.id;
     try {
@@ -25,15 +27,18 @@ router.get("/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) =>
 });
 router.post("/", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     let event = {};
+    logger.info(req.body)
+
     try {
         event = new Event(req.body);
     } catch (error) {
         logger.error(error)
         return res.status(400).json({ err: error })
     }
-    logger.info(req.body)
 
     try {
+        const eventCopy = structuredClone(event)
+        await roomModel.bookRoom(eventCopy)
         logger.info(event)
         id = randomUUID()
         const insertQuery = "INSERT INTO events (id, time, end_time, title, room_id, room_name,  study_group, lecturer_id, lecturer_name, type, module_name, comment) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -64,7 +69,7 @@ router.put("/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) =>
         res.status(500).send("Internal Server Error");
     }
 });
-router.delete("/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
+router.delete("/:id", requireRole("Area-1.Team-2.Delete.Events"), async (req, res) => {
     const eventId = req.params.id;
     try {
         const insertQuery = "DELETE FROM events WHERE id = ?";

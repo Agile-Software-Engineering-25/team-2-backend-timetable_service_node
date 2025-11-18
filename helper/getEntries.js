@@ -25,15 +25,15 @@ async function getEntries(filter) {
         params.push(filter.roomId)
     }
     if (filter.studyGroup) {
-        filters.push("studyGroup = ?");
+        filters.push("study_group = ?");
         params.push(filter.studyGroup)
     }
     if (filter.startTime) {
-        filters.push("startTime >= ?");
+        filters.push("time >= ?");
         params.push(filter.startTime)
     }
     if (filter.endTime) {
-        filters.push("endTime <= ?");
+        filters.push("end_time <= ?");
         params.push(filter.endTime)
     }
     // Filter anhängen
@@ -57,7 +57,7 @@ async function getEntries(filter) {
                 lecturer_name: entry.lecturer_name,
                 time: entry.time,
                 endTime: entry.end_time,
-                module:entry.module_name,
+                module: entry.module_name,
                 type: entry.type,
                 created_at: entry.created_at || "",
                 studyGroup: entry.study_group,

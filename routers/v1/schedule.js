@@ -4,12 +4,10 @@ const { requireRole } = require('../../helper/permission');
 const { Event, EventType } = require('../../models/Event');
 const { getEntries } = require('../../helper/getEntries');
 const logger = require('../../helper/logger');
+const UserModel = require('../../models/User');
 const router = express.Router();
 
-// Beispiel-Events mit dem neuen Datenmodell
-const exampleEvents = [
-
-];
+const userModel = new UserModel()
 
 router.get("", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     const filter = { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
@@ -27,15 +25,24 @@ router.get("", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
         return res.status(500).send("Inernal Server Error");
     }
 });
-router.get("/personal", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
+router.get("/personal/:id", requireRole("Area-1.Team-2.Read.Events"), async (req, res) => {
     const filter = { courseId, lecturerId, roomId, studyGroup, type, startTime, endTime } = req.query;
-    if (!filter.studyGroup && req.user.cohort) {
-        filter.studyGroup = req.user.cohort;
+    const userId = req.params.id;
+    let token;
+    if (req.headers.authorization &&
+        req.headers.authorization.split(" ")[0] === "Bearer") {
+        token = req.headers.authorization.split(" ")[1];
+    } else {
+        return res.status(401).send("Invalid token")
     }
-    if (!filter.lecturerId && req.user.groups.cointains("lecturer")) {
-        filter.lecturerId = user.sub
-    }
+    const user = await userModel.getUserById(userId, token)
     try {
+        if (!filter.studyGroup && req.user.groups.includes("student")) {
+            filter.studyGroup = user.cohort;
+        }
+        if (!filter.lecturerId && req.user.groups.includes("lecturer")) {
+            filter.lecturerId = userId
+        }
         const result = await getEntries(filter);
         if (result.length === 0) {
             return res.status(404).send("No Entries found")
@@ -43,7 +50,6 @@ router.get("/personal", requireRole("Area-1.Team-2.Read.Events"), async (req, re
         return res.status(200).send(result)
     }
     catch (error) {
-        console.log(error)
         logger.error(error, `Could not fetch personal events ${JSON.stringify(filter)}`)
         return res.status(500).send("Inernal Server Error")
     }

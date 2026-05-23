@@ -18,11 +18,11 @@
   },
   "homepage": "https://github.com/Agile-Software-Engineering-25/team-2-backend-timetable_service_node#readme",
   "dependencies": {
-    "body-parser": "^1.20.2",
+    "body-parser": "^1.20.5",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.1",
-    "express": "^4.21.2",
+    "express": "^4.22.2",
     "express-jwt": "^8.4.1",
     "express-list-endpoints": "^7.1.1",
     "fs": "^0.0.1-security",
